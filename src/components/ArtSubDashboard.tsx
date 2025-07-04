@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Star, Clock, Target } from "lucide-react";
-import { ArtSubEventData } from "@/utils/csvUtils";
+import type { ArtSubEventData } from "@/utils/csvUtils";
 
 interface ArtSubDashboardProps {
   data: ArtSubEventData;
