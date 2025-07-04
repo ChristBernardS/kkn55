@@ -9,7 +9,7 @@ import HealthScreening from "./pages/HealthScreening";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 import ArtEvent from "./pages/ArtEvent";
-import { Users, BarChart3, Calendar, Settings, Palette } from "lucide-react";
+import { Users, BarChart3, Calendar, Settings } from "lucide-react";
 
 const queryClient = new QueryClient();
 
