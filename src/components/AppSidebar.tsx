@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { 
   Film, 
   Heart, 
@@ -7,8 +6,6 @@ import {
   Calendar, 
   Settings, 
   Home,
-  ChevronLeft,
-  ChevronRight,
   Palette
 } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
@@ -21,12 +18,11 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar";
 
 const menuItems = [
   { title: "Overview", url: "/", icon: Home },
-  { title: "Cinema", url: "/movie-screening", icon: Film },
+  { title: "Movie Screening", url: "/movie-screening", icon: Film },
   { title: "Health Screening", url: "/health-screening", icon: Heart },
   { title: "Art Event", url: "/art-event", icon: Palette },
   { title: "Upcoming Data 1", url: "/data-1", icon: Users },
@@ -36,7 +32,6 @@ const menuItems = [
 ];
 
 export function AppSidebar() {
-  const { collapsed, toggleSidebar } = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -52,26 +47,16 @@ export function AppSidebar() {
       : "hover:bg-gray-100 text-gray-700 hover:text-gray-900 transition-all duration-200";
 
   return (
-    <Sidebar className={`${collapsed ? "w-16" : "w-64"} transition-all duration-300 border-r border-gray-200 bg-white shadow-lg`}>
+    <Sidebar className="w-64 border-r border-gray-200 bg-white shadow-lg">
       <div className="p-4 border-b border-gray-200">
-        <div className="flex items-center justify-between">
-          {!collapsed && (
-            <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
-              Resident Insights
-            </h2>
-          )}
-          <button
-            onClick={toggleSidebar}
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
-          </button>
-        </div>
+        <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
+          Resident Insights
+        </h2>
       </div>
 
       <SidebarContent className="p-2">
         <SidebarGroup>
-          <SidebarGroupLabel className={`text-gray-500 text-sm font-medium mb-2 ${collapsed ? "hidden" : ""}`}>
+          <SidebarGroupLabel className="text-gray-500 text-sm font-medium mb-2">
             Navigation
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -84,8 +69,8 @@ export function AppSidebar() {
                       end
                       className={`flex items-center px-3 py-2 rounded-lg transition-all duration-200 ${getNavCls(item.url)}`}
                     >
-                      <item.icon className={`h-5 w-5 ${collapsed ? "mx-auto" : "mr-3"}`} />
-                      {!collapsed && <span className="text-sm">{item.title}</span>}
+                      <item.icon className="h-5 w-5 mr-3" />
+                      <span className="text-sm">{item.title}</span>
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
