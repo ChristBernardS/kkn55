@@ -14,12 +14,12 @@ export interface HealthScreeningData {
   attended: number;
   highBloodSugar: number;
   highUricAcid: number;
-  highBloodPressure: number;
-  lowBloodPressure: number;
+  highBloodPressure: number | string; // Bisa number atau string (e.g., '120/80')
+  lowBloodPressure: number | string; // Bisa number atau string
   mostCommonComplaint: string;
   highestBloodSugar: number;
   highestUricAcid: number;
-  highestBloodPressure: string;
+  highestBloodPressure: string; // Tetap string untuk '120/80'
   averageAge: number;
   doorToDoorAttendance: number;
   programDateSta: string;
@@ -33,9 +33,6 @@ export interface ArtEventData {
   eventDate: string;
   duration: number;
   programTitle: string;
-  successfulParticipation: number;
-  salesRevenue: number;
-  productsSold: number;
 }
 
 export interface ArtSubEventData {
@@ -45,8 +42,13 @@ export interface ArtSubEventData {
   satisfactionPercent: number;
   eventDate: string;
   duration: number;
-  successfulParticipation: number;
-  successRate: number;
+}
+
+export interface HouseNumberingData {
+  totalResidents: number;
+  totalFamilyHead: number;
+  totalHouses: number;
+  programDate: string;
 }
 
 const parseNumericValue = (value: string, isInt: boolean = true): number => {
@@ -60,6 +62,11 @@ const parseNumericValue = (value: string, isInt: boolean = true): number => {
   }
 
   return isNaN(parsedValue) ? NaN : parsedValue;
+};
+
+const parseIntegerValue = (value: string, defaultValue: number = 0): number => {
+  const parsed = parseInt(value.trim().replace(/"/g, ''));
+  return isNaN(parsed) ? defaultValue : parsed;
 };
 
 export const fetchMovieScreeningData = async (): Promise<MovieScreeningData> => {
@@ -111,8 +118,8 @@ export const fetchHealthScreeningData = async (): Promise<HealthScreeningData> =
       attended: NaN,
       highBloodSugar: NaN,
       highUricAcid: NaN,
-      highBloodPressure: NaN,
-      lowBloodPressure: NaN,
+      highBloodPressure: 'N/A',
+      lowBloodPressure: 'N/A',
       mostCommonComplaint: 'N/A',
       highestBloodSugar: NaN,
       highestUricAcid: NaN,
@@ -139,7 +146,7 @@ export const fetchHealthScreeningData = async (): Promise<HealthScreeningData> =
         if (!isNaN(parsed)) {
             data[header] = parsed;
         } else {
-            data[header] = value;
+            data[header] = value; // Keep as string if parsing to number fails (e.g., '120/80')
         }
       } else if (header === 'highestBloodPressure') {
         data[header] = value;
@@ -158,60 +165,107 @@ export const fetchArtEventData = async (): Promise<{
   mainEvent: ArtEventData;
   subEvents: ArtSubEventData[];
 }> => {
+  const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vSnj5uwLkaApeiYgEpYuofZMBmFQLwXmnCXXMraCYp43Un3TIM9WUHnk82UO7jtWF6phKtKdIPZK9ht/pub?gid=1967206431&single=true&output=csv');
+  const csvText = await response.text();
+
+  console.log('Art CSV response:', csvText);
+
+  const lines = csvText.trim().split('\n');
+  if (lines.length < 2) {
+    console.error("CSV data for Art Event is empty or missing headers/data.");
+    return {
+      mainEvent: {
+        totalResidents: NaN,
+        attendedEvent: NaN,
+        satisfactionPercent: NaN,
+        eventDate: 'N/A',
+        duration: NaN,
+        programTitle: 'N/A'
+      },
+      subEvents: []
+    };
+  }
+
+  const headers = lines[0].split(',').map(header => header.trim().replace(/"/g, ''));
+  const allRowsData: any[] = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const values = lines[i].split(',').map(value => value.trim().replace(/"/g, ''));
+    const rowData: any = {};
+    headers.forEach((header, index) => {
+      const value = values[index];
+      if (header && value !== undefined) {
+        if (['totalResidents', 'attendedEvent', 'satisfactionPercent', 'duration'].includes(header)) {
+          rowData[header] = parseIntegerValue(value);
+        } else {
+          rowData[header] = value;
+        }
+      }
+    });
+    allRowsData.push(rowData);
+  }
+
+  // Assume the first row is the main event, and subsequent rows are sub-events
+  const mainEventData = allRowsData[0] || {};
+  const subEventData = allRowsData.slice(1);
+
   const mainEvent: ArtEventData = {
-    totalResidents: 150,
-    attendedEvent: 120,
-    satisfactionPercent: 92,
-    eventDate: "2024-06-15",
-    duration: 240,
-    programTitle: "Community Art Creation & Exhibition",
-    successfulParticipation: 110,
-    salesRevenue: 2500,
-    productsSold: 45
+    totalResidents: mainEventData.totalResidents || 0,
+    attendedEvent: mainEventData.attendedEvent || 0,
+    satisfactionPercent: mainEventData.satisfactionPercent || 0,
+    eventDate: mainEventData.eventDate || '',
+    duration: mainEventData.duration || 0,
+    programTitle: mainEventData.programTitle || 'Art Creation & Exhibition'
   };
 
-  const subEvents: ArtSubEventData[] = [
-    {
-      programTitle: "Painting Workshop",
-      totalResidents: 150,
-      attendedEvent: 35,
-      satisfactionPercent: 95,
-      eventDate: "2024-06-15",
-      duration: 60,
-      successfulParticipation: 32,
-      successRate: 91
-    },
-    {
-      programTitle: "Sculpture Creation",
-      totalResidents: 150,
-      attendedEvent: 28,
-      satisfactionPercent: 88,
-      eventDate: "2024-06-15",
-      duration: 90,
-      successfulParticipation: 24,
-      successRate: 86
-    },
-    {
-      programTitle: "Pottery Making",
-      totalResidents: 150,
-      attendedEvent: 32,
-      satisfactionPercent: 90,
-      eventDate: "2024-06-15",
-      duration: 75,
-      successfulParticipation: 29,
-      successRate: 91
-    },
-    {
-      programTitle: "Art Exhibition & Sales",
-      totalResidents: 150,
-      attendedEvent: 85,
-      satisfactionPercent: 94,
-      eventDate: "2024-06-15",
-      duration: 180,
-      successfulParticipation: 45,
-      successRate: 53
-    }
-  ];
+  const subEvents: ArtSubEventData[] = subEventData.map(data => ({
+    programTitle: data.programTitle || 'N/A',
+    totalResidents: data.totalResidents || 0,
+    attendedEvent: data.attendedEvent || 0,
+    satisfactionPercent: data.satisfactionPercent || 0,
+    eventDate: data.eventDate || '',
+    duration: data.duration || 0
+  }));
+
+  console.log('Parsed main event data:', mainEvent);
+  console.log('Parsed sub events data:', subEvents);
 
   return { mainEvent, subEvents };
+};
+
+export const fetchHouseNumberingData = async (): Promise<HouseNumberingData> => {
+  const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vSnj5uwLkaApeiYgEpYuofZMBmFQLwXmnCXXMraCYp43Un3TIM9WUHnk82UO7jtWF6phKtKdIPZK9ht/pub?gid=266499628&single=true&output=csv');
+  const csvText = await response.text();
+
+  console.log('House Numbering CSV response:', csvText);
+
+  const lines = csvText.trim().split('\n');
+  if (lines.length < 2) {
+    console.error("CSV data for HouseNumbering is empty or missing headers/data.");
+    return {
+      totalResidents: NaN,
+      totalFamilyHead: NaN,
+      totalHouses: NaN,
+      programDate: 'N/A',
+    } as HouseNumberingData;
+  }
+
+  const headers = lines[0].split(',').map(header => header.trim());
+  const values = lines[1].split(',').map(value => value.trim().replace(/"/g, ''));
+
+  const data: any = {};
+
+  headers.forEach((header, index) => {
+    const value = values[index];
+    if (header && value !== undefined) {
+      if (['totalResidents', 'totalFamilyHead', 'totalHouses'].includes(header)) {
+        data[header] = parseIntegerValue(value);
+      } else {
+        data[header] = value;
+      }
+    }
+  });
+
+  console.log('Parsed house numbering data:', data);
+  return data as HouseNumberingData;
 };
