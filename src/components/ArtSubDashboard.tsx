@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, Star, Clock, Target } from "lucide-react";
+import { Users, Star, Clock } from "lucide-react";
 import type { ArtSubEventData } from "@/utils/csvUtils";
 
 interface ArtSubDashboardProps {
@@ -32,7 +32,7 @@ export function ArtSubDashboard({ data, colorIndex }: ArtSubDashboardProps) {
         <CardTitle className="text-lg font-bold text-gray-900 flex items-center justify-between">
           <span>{data.programTitle}</span>
           <div className={`px-3 py-1 rounded-full bg-gradient-to-r ${gradient} text-white text-sm font-medium`}>
-            {data.successRate}% Success Rate
+            {data.satisfactionPercent}% Satisfaction
           </div>
         </CardTitle>
       </CardHeader>
@@ -59,15 +59,6 @@ export function ArtSubDashboard({ data, colorIndex }: ArtSubDashboardProps) {
 
           <div className="space-y-3">
             <div className="flex items-center space-x-2">
-              <Target className="h-4 w-4 text-green-600" />
-              <div>
-                <div className="text-sm text-gray-600">Successful</div>
-                <div className="font-bold text-lg">{data.successfulParticipation}</div>
-                <div className="text-xs text-gray-500">participants</div>
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-2">
               <Clock className="h-4 w-4 text-blue-600" />
               <div>
                 <div className="text-sm text-gray-600">Duration</div>
@@ -77,16 +68,16 @@ export function ArtSubDashboard({ data, colorIndex }: ArtSubDashboardProps) {
           </div>
         </div>
 
-        {/* Success Rate Progress Bar */}
+        {/* Satisfaction Rate Progress Bar */}
         <div className="mt-4">
           <div className="flex justify-between text-sm text-gray-600 mb-1">
-            <span>Success Rate</span>
-            <span>{data.successRate}%</span>
+            <span>Satisfaction Rate</span>
+            <span>{data.satisfactionPercent}%</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div 
               className={`bg-gradient-to-r ${gradient} h-2 rounded-full transition-all duration-500`}
-              style={{ width: `${data.successRate}%` }}
+              style={{ width: `${data.satisfactionPercent}%` }}
             ></div>
           </div>
         </div>
