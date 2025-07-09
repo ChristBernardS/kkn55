@@ -1,7 +1,7 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { DataCard } from "@/components/DataCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Palette, Users, Star, Calendar, Loader2, DollarSign, ShoppingBag, Camera } from "lucide-react";
+import { Palette, Users, Star, Calendar, Loader2, Clock, MapPin } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchArtEventData } from "@/utils/csvUtils";
 import { ArtSubDashboard } from "@/components/ArtSubDashboard";
@@ -11,7 +11,7 @@ export default function ArtEvent() {
   const { data: artData, isLoading, error } = useQuery({
     queryKey: ['artEventData'],
     queryFn: fetchArtEventData,
-    refetchInterval: 5 * 60 * 1000, // Refetch every 5 minutes
+    refetchInterval: 5 * 60 * 1000,
   });
 
   if (isLoading) {
@@ -44,7 +44,41 @@ export default function ArtEvent() {
 
   const { mainEvent, subEvents } = artData;
   const attendanceRate = Math.round((mainEvent.attendedEvent / mainEvent.totalResidents) * 100);
-  const overallSuccessRate = Math.round((mainEvent.successfulParticipation / mainEvent.attendedEvent) * 100);
+
+  const formatSingleDate = (dateStr: string | undefined): string => {
+    if (!dateStr || dateStr === 'N/A') {
+      return 'N/A';
+    }
+    
+    try {
+      const parts = dateStr.split('/');
+      if (parts.length !== 3) {
+        const date = new Date(dateStr);
+        if (!isNaN(date.getTime())) {
+          return date.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long' });
+        }
+        return dateStr;
+      }
+
+      const day = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10);
+      const year = parseInt(parts[2], 10);
+
+      const date = new Date(year, month - 1, day);
+
+      if (isNaN(date.getTime())) {
+        console.error("Invalid date object created for:", dateStr);
+        return dateStr;
+      }
+
+      const options: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long' };
+
+      return date.toLocaleDateString('id-ID', options);
+    } catch (e) {
+      console.error("Error formatting single date:", e);
+      return dateStr;
+    }
+  };
 
   return (
     <DashboardLayout>
@@ -54,7 +88,6 @@ export default function ArtEvent() {
           <h1 className="text-3xl font-bold text-gray-900">Art Creation & Exhibition Dashboard</h1>
         </div>
 
-        {/* Main Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <DataCard
             title="Total Residents"
@@ -78,61 +111,82 @@ export default function ArtEvent() {
             icon={<Star className="h-6 w-6" />}
             gradient="from-green-500 to-green-600"
           />
-          
+
           <DataCard
-            title="Success Rate"
-            value={`${overallSuccessRate}%`}
-            subtitle="Successful participation"
-            icon={<Palette className="h-6 w-6" />}
+            title="Event Duration"
+            value={`${mainEvent.duration}min`}
+            subtitle="Total program time"
+            icon={<Clock className="h-6 w-6" />}
             gradient="from-blue-500 to-blue-600"
           />
         </div>
 
-        {/* Sales Information */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <DataCard
-            title="Sales Revenue"
-            value={`$${mainEvent.salesRevenue}`}
-            subtitle="Total revenue generated"
-            icon={<DollarSign className="h-6 w-6" />}
-            gradient="from-emerald-500 to-emerald-600"
-          />
-          
-          <DataCard
-            title="Products Sold"
-            value={mainEvent.productsSold}
-            subtitle="Artworks purchased"
-            icon={<ShoppingBag className="h-6 w-6" />}
-            gradient="from-orange-500 to-orange-600"
-          />
-
+        {/* Event Details and Summary Row */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Event Details Card */}
           <Card className="shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
-                <Palette className="h-5 w-5 text-purple-600" />
+                <MapPin className="h-5 w-5 text-purple-600" />
                 <span>Event Details</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-700">Program:</span>
-                  <span className="font-medium text-gray-900">{mainEvent.programTitle}</span>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
+                  <span className="text-gray-700 font-medium">Program Title:</span>
+                  <span className="font-bold text-purple-900">{mainEvent.programTitle}</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-700">Date:</span>
-                  <span className="font-medium text-gray-900">{mainEvent.eventDate}</span>
+                <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                  <span className="text-gray-700 font-medium">Event Date:</span>
+                  <span className="font-bold text-blue-900">{formatSingleDate(mainEvent.eventDate)}</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-700">Duration:</span>
-                  <span className="font-medium text-gray-900">{mainEvent.duration} minutes</span>
+                <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                  <span className="text-gray-700 font-medium">Duration:</span>
+                  <span className="font-bold text-green-900">{mainEvent.duration} minutes</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-pink-50 rounded-lg">
+                  <span className="text-gray-700 font-medium">Location:</span>
+                  <span className="font-bold text-pink-900">Balai Dusun Sumur</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Event Summary Card */}
+          <Card className="shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Star className="h-5 w-5 text-yellow-600" />
+                <span>Event Summary</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="text-center p-4 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg">
+                  <div className="text-2xl font-bold text-purple-900">{attendanceRate}%</div>
+                  <div className="text-sm text-purple-700">Attendance Rate</div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="text-center p-3 bg-blue-50 rounded-lg">
+                    <div className="text-lg font-bold text-blue-900">{mainEvent.attendedEvent}</div>
+                    <div className="text-xs text-blue-700">Participants</div>
+                  </div>
+                  <div className="text-center p-3 bg-green-50 rounded-lg">
+                    <div className="text-lg font-bold text-green-900">{mainEvent.satisfactionPercent}%</div>
+                    <div className="text-xs text-green-700">Satisfaction</div>
+                  </div>
+                </div>
+
+                <div className="text-sm text-gray-600 p-3 bg-gray-50 rounded-lg">
+                  <strong>Key Highlights:</strong> The art event successfully engaged the community with diverse creative activities, achieving high satisfaction rates across all program segments.
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Sub-Dashboards */}
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-gray-900 flex items-center space-x-2">
             <Palette className="h-6 w-6 text-purple-600" />
@@ -149,8 +203,6 @@ export default function ArtEvent() {
             ))}
           </div>
         </div>
-
-        {/* Photo Gallery Section */}
         <ArtPhotoGallery />
       </div>
     </DashboardLayout>
