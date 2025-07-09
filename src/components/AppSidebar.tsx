@@ -1,10 +1,10 @@
 import { 
   Film, 
   Heart, 
-  Users, 
-  BarChart3, 
-  Calendar, 
-  Settings, 
+  // Users, 
+  // BarChart3, 
+  // Calendar, 
+  // Settings, 
   Home,
   Palette
 } from "lucide-react";
@@ -25,10 +25,11 @@ const menuItems = [
   { title: "Movie Screening", url: "/movie-screening", icon: Film },
   { title: "Health Screening", url: "/health-screening", icon: Heart },
   { title: "Art Event", url: "/art-event", icon: Palette },
-  { title: "Upcoming Data 1", url: "/data-1", icon: Users },
-  { title: "Upcoming Data 2", url: "/data-2", icon: BarChart3 },
-  { title: "Upcoming Data 3", url: "/data-3", icon: Calendar },
-  { title: "Upcoming Data 4", url: "/data-4", icon: Settings },
+  { title: "House Numbering", url: "/house-numbering", icon: Home },
+  // { title: "Upcoming Data 1", url: "/data-1", icon: Users },
+  // { title: "Upcoming Data 2", url: "/data-2", icon: BarChart3 },
+  // { title: "Upcoming Data 3", url: "/data-3", icon: Calendar },
+  // { title: "Upcoming Data 4", url: "/data-4", icon: Settings },
 ];
 
 export function AppSidebar() {
