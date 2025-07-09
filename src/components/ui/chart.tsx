@@ -2,9 +2,24 @@
 
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
-import type { TooltipProps } from "recharts"
+import type { LegendProps, LegendPayload } from "recharts";
 
 import { cn } from "@/lib/utils"
+
+// Helper to define the structure of a single item in the Tooltip's payload array.
+// We explicitly define the expected properties rather than trying to extract them from TooltipProps.
+type RechartsTooltipPayload = {
+  value: any; // The value of the data point
+  name: string; // The name of the data point (e.g., series name)
+  dataKey?: string; // The data key used for the series
+  color?: string; // The color associated with the item
+  fill?: string;
+  payload?: { [key: string]: any };
+  unit?: string;
+  formatter?: (value: any, name: string, entry: any, index: number) => React.ReactNode;
+  // Add other properties you expect on a tooltip payload item as needed
+};
+
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const
@@ -103,14 +118,22 @@ ${colorConfig
 
 const ChartTooltip = RechartsPrimitive.Tooltip
 
-type ChartTooltipContentProps = React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
-  React.ComponentProps<"div"> & {
-    hideLabel?: boolean;
-    hideIndicator?: boolean;
-    indicator?: "line" | "dot" | "dashed";
-    nameKey?: string;
-    labelKey?: string;
-  };
+// Define ChartTooltipContentProps with explicit types for expected props
+type ChartTooltipContentProps = React.ComponentProps<"div"> & {
+  hideLabel?: boolean
+  hideIndicator?: boolean
+  indicator?: "line" | "dot" | "dashed"
+  nameKey?: string
+  labelKey?: string
+  // Explicitly define Recharts Tooltip props that are used
+  active?: boolean; // Type as boolean for active state
+  payload?: RechartsTooltipPayload[]; // Use the new, explicitly defined TooltipPayload type
+  label?: string | number | React.ReactNode; // Type as per Recharts documentation
+  labelFormatter?: (value: any, payload: RechartsTooltipPayload[]) => React.ReactNode; // Correct type for labelFormatter
+  formatter?: (value: any, name: string, entry: RechartsTooltipPayload, index: number, payload?: { [key: string]: any }) => React.ReactNode; // Correct type for formatter, added optional payload arg
+  color?: string; // Type as string for color
+  labelClassName?: string;
+}
 
 const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
@@ -119,16 +142,16 @@ const ChartTooltipContent = React.forwardRef<
   (
     {
       active,
-      payload, // payload will now be correctly typed
+      payload,
       className,
       indicator = "dot",
       hideLabel = false,
       hideIndicator = false,
-      label, // label will now be correctly typed
+      label,
       labelFormatter,
       labelClassName,
       formatter,
-      color,
+      color, // 'color' property is now directly part of ChartTooltipContentProps
       nameKey,
       labelKey,
     },
@@ -188,19 +211,22 @@ const ChartTooltipContent = React.forwardRef<
       >
         {!nestLabel ? tooltipLabel : null}
         <div className="grid gap-1.5">
-          {payload.map((item, index) => {
+          {payload.map((item: RechartsTooltipPayload, index: number) => {
             const key = `${nameKey || item.name || item.dataKey || "value"}`
             const itemConfig = getPayloadConfigFromPayload(config, item, key)
-            const indicatorColor = color || item.payload.fill || item.color
+            // Accessing item.payload.fill directly here might still be an issue if item.payload is undefined
+            // Added nullish coalescing for item.payload
+            const indicatorColor = color || item.payload?.fill || item.color
 
             return (
               <div
-                key={item.dataKey}
+                key={item.dataKey || index} // Added index fallback for key
                 className={cn(
                   "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
                   indicator === "dot" && "items-center"
                 )}
               >
+                {/* Ensure the formatter function signature matches the type definition */}
                 {formatter && item?.value !== undefined && item.name ? (
                   formatter(item.value, item.name, item, index, item.payload)
                 ) : (
@@ -261,13 +287,16 @@ ChartTooltipContent.displayName = "ChartTooltip"
 
 const ChartLegend = RechartsPrimitive.Legend
 
+type ChartLegendContentProps = React.ComponentProps<"div"> &
+  Pick<LegendProps, "verticalAlign"> & {
+    hideIcon?: boolean
+    nameKey?: string
+    payload?: LegendPayload[];
+  }
+
 const ChartLegendContent = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<"div"> &
-    Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
-      hideIcon?: boolean
-      nameKey?: string
-    }
+  ChartLegendContentProps
 >(
   (
     { className, hideIcon = false, payload, verticalAlign = "bottom", nameKey },
@@ -288,7 +317,7 @@ const ChartLegendContent = React.forwardRef<
           className
         )}
       >
-        {payload.map((item) => {
+        {payload.map((item: LegendPayload) => {
           const key = `${nameKey || item.dataKey || "value"}`
           const itemConfig = getPayloadConfigFromPayload(config, item, key)
 
