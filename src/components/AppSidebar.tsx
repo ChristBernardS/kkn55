@@ -1,12 +1,9 @@
 import { 
   Film, 
-  Heart, 
-  // Users, 
-  // BarChart3, 
-  // Calendar, 
-  // Settings, 
+  HeartPulse,
   Home,
-  Palette
+  ShoppingBag,
+  UserCheck
 } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
@@ -22,14 +19,11 @@ import {
 
 const menuItems = [
   { title: "Overview", url: "/", icon: Home },
-  { title: "Movie Screening", url: "/movie-screening", icon: Film },
-  { title: "Health Screening", url: "/health-screening", icon: Heart },
-  { title: "Art Event", url: "/art-event", icon: Palette },
+  { title: "Cinema", url: "/movie-screening", icon: Film },
+  { title: "Health Screening", url: "/health-screening", icon: HeartPulse },
+  { title: "UMKM", url: "/art-event", icon: ShoppingBag },
   { title: "House Numbering", url: "/house-numbering", icon: Home },
-  // { title: "Upcoming Data 1", url: "/data-1", icon: Users },
-  // { title: "Upcoming Data 2", url: "/data-2", icon: BarChart3 },
-  // { title: "Upcoming Data 3", url: "/data-3", icon: Calendar },
-  // { title: "Upcoming Data 4", url: "/data-4", icon: Settings },
+  { title: "Members", url: "/members", icon: UserCheck }
 ];
 
 export function AppSidebar() {
