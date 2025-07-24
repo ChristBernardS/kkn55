@@ -2,6 +2,7 @@
 
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { DataCard } from "@/components/DataCard";
+import { PhotoGallery } from "@/components/PhotoGallery";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Film, Users, Star, Calendar, Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
@@ -50,51 +51,54 @@ export default function MovieScreening() {
 
   console.log('Movie data loaded:', movieData);
 
-  // Pastikan totalResidents tidak nol untuk menghindari NaN pada pembagian
   const attendanceRate = movieData.totalResidents > 0 
     ? Math.round((movieData.attendedEvent / movieData.totalResidents) * 100) 
-    : 0; // Jika totalResidents 0, attendanceRate adalah 0%
+    : 0;
 
-  // Fungsi pembantu untuk menangani NaN saat menampilkan angka
+  const moviePhotos = [
+    { id: 1, title: "Group Photo", url: "/image/movie_1.jpg" },
+    { id: 2, title: "Audience Enjoying Film", url: "/image/movie_2.mp4", type: "video" as const },
+    { id: 3, title: "Movie Night Setup", url: "/image/movie_3.jpg" },
+    { id: 4, title: "Community Gathering", url: "/image/movie_4.jpg" },
+    { id: 5, title: "Event Compilation", url: "/image/movie_7.mp4", type: "video" as const },
+    { id: 6, title: "Preparation", url: "/image/movie_6.jpg" }
+  ];
+
   const formatNumber = (num: number | string | undefined): string => 
     (typeof num === 'number' && !isNaN(num)) ? String(num) : 'N/A';
 
-  // Fungsi helper baru untuk memformat tanggal menjadi "Hari, tanggal bulan"
   const formatSingleDate = (dateStr: string | undefined): string => {
     if (!dateStr || dateStr === 'N/A') {
       return 'N/A';
     }
     
     try {
-      // Memecah tanggal (misal: "04/07/2025") menjadi bagian-bagian
       const parts = dateStr.split('/');
       if (parts.length !== 3) {
-        // Jika format tidak sesuai DD/MM/YYYY, coba parsing langsung atau kembalikan string asli
-        const date = new Date(dateStr); // Coba parse langsung jika format berbeda
+        const date = new Date(dateStr);
         if (!isNaN(date.getTime())) {
           return date.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long' });
         }
-        return dateStr; // Kembalikan string asli jika parsing gagal
+        return dateStr;
       }
 
       const day = parseInt(parts[0], 10);
-      const month = parseInt(parts[1], 10); // Bulan di JavaScript 0-indexed
+      const month = parseInt(parts[1], 10);
       const year = parseInt(parts[2], 10);
 
       const date = new Date(year, month - 1, day);
 
-      if (isNaN(date.getTime())) { // Memeriksa apakah objek Date valid
+      if (isNaN(date.getTime())) {
         console.error("Invalid date object created for:", dateStr);
-        return dateStr; // Kembalikan string asli jika objek Date tidak valid
+        return dateStr;
       }
 
-      // Opsi untuk format tanggal: "Hari, tanggal bulan"
       const options: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long' };
 
-      return date.toLocaleDateString('id-ID', options); // 'id-ID' untuk Bahasa Indonesia
+      return date.toLocaleDateString('id-ID', options);
     } catch (e) {
       console.error("Error formatting single date:", e);
-      return dateStr; // Kembalikan string asli jika ada error
+      return dateStr;
     }
   };
 
@@ -194,6 +198,11 @@ export default function MovieScreening() {
             </CardContent>
           </Card>
         </div>
+        <PhotoGallery 
+          photos={moviePhotos} 
+          title="Movie Screening Photo Gallery" 
+          iconColor="text-blue-600" 
+        />
       </div>
     </DashboardLayout>
   );
