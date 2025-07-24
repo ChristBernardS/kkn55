@@ -10,6 +10,7 @@ import PlaceholderPage from "./pages/PlaceholderPage";
 import NotFound from "./pages/NotFound";
 import ArtEvent from "./pages/ArtEvent";
 import HouseNumbering from "./pages/HouseNumbering";
+import MemberInfo from "./pages/MemberInfo";
 import { Users, BarChart3, Calendar, Settings } from "lucide-react";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/health-screening" element={<HealthScreening />} />
           <Route path="/art-event" element={<ArtEvent />} />
           <Route path="/house-numbering" element={<HouseNumbering />} />
+          <Route path="/members" element={<MemberInfo />} />
           <Route 
             path="/data-1" 
             element={
