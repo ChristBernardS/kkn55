@@ -1,5 +1,6 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { DataCard } from "@/components/DataCard";
+import { PhotoGallery } from "@/components/PhotoGallery";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Home, Users, Activity, Calendar, TrendingUp, MapPin } from "lucide-react";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
@@ -18,6 +19,33 @@ const customMarkerIcon = new L.Icon({
 
 export default function Overview() {
   const position: L.LatLngExpression = [-8.185093026404976, 110.97966157791248];
+
+  const dailyActivities = [
+    { id: 1, title: "Morning Briefing", url: "/image/dl_1.mp4", type: "video" as const },
+    { id: 2, title: "Health Screening Setup", url: "/image/dl_2.mp4", type: "video" as const },
+    { id: 3, title: "Community Lunch", url: "/image/dl_3.mp4", type: "video" as const },
+    { id: 4, title: "UMKM Socialization Session", url: "/image/dl_4.mp4", type: "video" as const },
+    { id: 5, title: "Watching Cinema Together", url: "/image/dl_5.mp4", type: "video" as const },
+    { id: 6, title: "Evening Discussion", url: "/image/dl_6.jpg" },
+    { id: 7, title: "Evening Discussion", url: "/image/dl_7.jpg" },
+    { id: 8, title: "Evening Discussion", url: "/image/dl_8.jpg" },
+    { id: 9, title: "Evening Discussion", url: "/image/dl_9.jpg" },
+    { id: 10, title: "Evening Discussion", url: "/image/dl_10.jpg" },
+    { id: 11, title: "Evening Discussion", url: "/image/dl_11.jpg" },
+    { id: 12, title: "Evening Discussion", url: "/image/dl_12.jpg" },
+    { id: 13, title: "Evening Discussion", url: "/image/dl_13.jpg" },
+    { id: 14, title: "Evening Discussion", url: "/image/dl_14.jpg" },
+    { id: 15, title: "Evening Discussion", url: "/image/dl_15.jpg" },
+    { id: 16, title: "Evening Discussion", url: "/image/dl_16.jpg" },
+    { id: 17, title: "Evening Discussion", url: "/image/dl_17.jpg" },
+    { id: 18, title: "Evening Discussion", url: "/image/dl_18.jpg" },
+    { id: 19, title: "Evening Discussion", url: "/image/dl_19.jpg" },
+    { id: 20, title: "Evening Discussion", url: "/image/dl_20.mp4", type: "video" as const },
+    { id: 21, title: "Evening Discussion", url: "/image/dl_21.jpg" },
+    { id: 22, title: "Evening Discussion", url: "/image/dl_22.jpg" },
+    { id: 23, title: "Evening Discussion", url: "/image/dl_23.mp4", type: "video" as const },
+    { id: 24, title: "Evening Discussion", url: "/image/dl_24.mp4", type: "video" as const }
+  ];
 
   return (
     <DashboardLayout>
@@ -146,9 +174,14 @@ export default function Overview() {
           </CardHeader>
           <CardContent>
             <div className="h-[400px] w-full rounded-lg overflow-hidden">
-              <MapContainer center={position} zoom={14} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
+              <MapContainer 
+                center={position} 
+                zoom={14} 
+                scrollWheelZoom={true} 
+                style={{ height: '100%', width: '100%' }}
+                className="relative z-10"
+              >
                 <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
                 />
                 <Marker position={position} icon={customMarkerIcon}>
@@ -160,6 +193,12 @@ export default function Overview() {
             </div>
           </CardContent>
         </Card>
+
+        <PhotoGallery 
+          photos={dailyActivities} 
+          title="Daily Activity" 
+          iconColor="text-blue-600" 
+        />
 
         <Card className="shadow-lg">
           <CardHeader>
