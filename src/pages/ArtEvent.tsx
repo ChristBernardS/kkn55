@@ -1,7 +1,7 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { DataCard } from "@/components/DataCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Palette, Users, Star, Calendar, Loader2, Clock, MapPin } from "lucide-react";
+import { ShoppingBag, Users, Star, Calendar, Loader2, Clock, MapPin } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchArtEventData } from "@/utils/csvUtils";
 import { ArtSubDashboard } from "@/components/ArtSubDashboard";
@@ -84,8 +84,8 @@ export default function ArtEvent() {
     <DashboardLayout>
       <div className="space-y-6">
         <div className="flex items-center space-x-3">
-          <Palette className="h-8 w-8 text-purple-600" />
-          <h1 className="text-3xl font-bold text-gray-900">Art Creation & Exhibition Dashboard</h1>
+          <ShoppingBag className="h-8 w-8 text-purple-600" />
+          <h1 className="text-3xl font-bold text-gray-900">UMKM Dashboard</h1>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -180,7 +180,7 @@ export default function ArtEvent() {
                 </div>
 
                 <div className="text-sm text-gray-600 p-3 bg-gray-50 rounded-lg">
-                  <strong>Key Highlights:</strong> The art event successfully engaged the community with diverse creative activities, achieving high satisfaction rates across all program segments.
+                  <strong>Key Highlights:</strong> The event successfully engaged the community with diverse creative insights, achieving high satisfaction rates across all program segments.
                 </div>
               </div>
             </CardContent>
@@ -189,7 +189,7 @@ export default function ArtEvent() {
 
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-gray-900 flex items-center space-x-2">
-            <Palette className="h-6 w-6 text-purple-600" />
+            <ShoppingBag className="h-6 w-6 text-purple-600" />
             <span>Program Sub-Dashboards</span>
           </h2>
           
