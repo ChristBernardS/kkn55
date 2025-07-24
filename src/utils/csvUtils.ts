@@ -24,6 +24,10 @@ export interface HealthScreeningData {
   doorToDoorAttendance: number;
   programDateSta: string;
   programDateEnd: string;
+  // New fields for averages
+  averageBloodSugar: number;
+  averageUricAcid: number;
+  averageBloodPressure: string; // Assuming 'X/Y' format for display
 }
 
 export interface ArtEventData {
@@ -42,6 +46,7 @@ export interface ArtSubEventData {
   satisfactionPercent: number;
   eventDate: string;
   duration: number;
+  programSummary: string; // Tambahkan field ini
 }
 
 export interface HouseNumberingData {
@@ -128,6 +133,10 @@ export const fetchHealthScreeningData = async (): Promise<HealthScreeningData> =
       doorToDoorAttendance: NaN,
       programDateSta: 'N/A',
       programDateEnd: 'N/A',
+      // Default values for new fields
+      averageBloodSugar: NaN,
+      averageUricAcid: NaN,
+      averageBloodPressure: 'N/A',
     } as HealthScreeningData;
   }
 
@@ -139,7 +148,7 @@ export const fetchHealthScreeningData = async (): Promise<HealthScreeningData> =
   headers.forEach((header, index) => {
     const value = values[index];
     if (header && value !== undefined) {
-      if (['totalResidents', 'attended', 'highBloodSugar', 'highUricAcid', 'highestBloodSugar', 'highestUricAcid', 'averageAge', 'doorToDoorAttendance'].includes(header)) {
+      if (['totalResidents', 'attended', 'highBloodSugar', 'highUricAcid', 'highestBloodSugar', 'highestUricAcid', 'averageAge', 'doorToDoorAttendance', 'averageBloodSugar', 'averageUricAcid'].includes(header)) {
         data[header] = parseNumericValue(value, true);
       } else if (['highBloodPressure', 'lowBloodPressure'].includes(header)) {
         const parsed = parseNumericValue(value, false);
@@ -148,7 +157,7 @@ export const fetchHealthScreeningData = async (): Promise<HealthScreeningData> =
         } else {
             data[header] = value; // Keep as string if parsing to number fails (e.g., '120/80')
         }
-      } else if (header === 'highestBloodPressure') {
+      } else if (['highestBloodPressure', 'averageBloodPressure'].includes(header)) { // Include averageBloodPressure here
         data[header] = value;
       } else {
         data[header] = value;
@@ -224,7 +233,8 @@ export const fetchArtEventData = async (): Promise<{
     attendedEvent: data.attendedEvent || 0,
     satisfactionPercent: data.satisfactionPercent || 0,
     eventDate: data.eventDate || '',
-    duration: data.duration || 0
+    duration: data.duration || 0,
+    programSummary: data.programSummary || 'No summary available', // Pastikan ini di-parse
   }));
 
   console.log('Parsed main event data:', mainEvent);
