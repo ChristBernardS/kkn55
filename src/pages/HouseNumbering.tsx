@@ -1,7 +1,8 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { DataCard } from "@/components/DataCard";
+import { PhotoGallery } from "@/components/PhotoGallery";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Home, Users, Calendar, Loader2, Camera } from "lucide-react"; // Hapus 'Image' dari sini
+import { Home, Users, Calendar, Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchHouseNumberingData } from "@/utils/csvUtils";
 
@@ -9,7 +10,7 @@ export default function HouseNumbering() {
   const { data: houseData, isLoading, error } = useQuery({
     queryKey: ['houseNumberingData'],
     queryFn: fetchHouseNumberingData,
-    refetchInterval: 5 * 60 * 1000, // Refetch every 5 minutes
+    refetchInterval: 5 * 60 * 1000, 
   });
 
   if (isLoading) {
@@ -40,18 +41,16 @@ export default function HouseNumbering() {
 
   if (!houseData) return null;
 
-  // Helper function to format numbers or display 'N/A'
   const formatNumber = (num: number | string | undefined): string => {
     if (typeof num === 'number' && !isNaN(num)) {
       return String(num);
     }
     if (typeof num === 'string' && num.trim() !== '' && num.trim() !== 'N/A') {
-        return num; // Untuk string seperti "Complete" atau tanggal
+        return num;
     }
     return 'N/A';
   };
 
-  // Helper function to format date from CSV (e.g., "YYYY/MM/DD" or "DD/MM/YYYY")
   const formatDate = (dateStr: string | undefined): string => {
     if (!dateStr || dateStr === 'N/A') return 'N/A';
     try {
@@ -59,16 +58,13 @@ export default function HouseNumbering() {
       let date: Date;
 
       if (parts.length === 3) {
-        // Asumsi format CSV adalah DD/MM/YYYY karena umum di Indonesia
         date = new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]));
-        // Jika format CSV Anda YYYY/MM/DD, gunakan ini sebagai gantinya:
-        // date = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
       } else {
-        date = new Date(dateStr); // Coba parse langsung jika format standar
+        date = new Date(dateStr);
       }
 
       if (isNaN(date.getTime())) {
-        return dateStr; // Kembali ke string asli jika parsing gagal
+        return dateStr;
       }
       return date.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
     } catch (e) {
@@ -77,21 +73,15 @@ export default function HouseNumbering() {
     }
   };
 
-
-  // Mock photo data for house numbering (Ganti dengan URL gambar Anda yang sebenarnya)
-  // Pastikan gambar-gambar ini ada di folder public/image/ atau adalah URL eksternal
   const housePhotos = [
-    { id: 1, title: "House Number Installation 1", url: "/image/house_num_1.jpg" }, // Contoh path lokal
-    { id: 2, title: "Village Street View 1", url: "/image/house_num_2.jpg" },
-    { id: 3, title: "Numbered Houses 1", url: "/image/house_num_3.jpg" },
-    { id: 4, title: "Community Participation 1", url: "/image/house_num_4.jpg" },
-    { id: 5, title: "Installation Process 1", url: "/image/house_num_5.jpg" },
-    { id: 6, title: "Completed Project 1", url: "/image/house_num_6.jpg" }
-    // Contoh URL eksternal (pastikan ini adalah direct link ke gambar)
-    // { id: 7, title: "External Image", url: "https://example.com/your-image.jpg" }
+    { id: 1, title: "House Number Installation", url: "/image/house_1.jpg" },
+    { id: 2, title: "Village Street View", url: "/image/house_2.jpg" },
+    { id: 3, title: "Installation Process", url: "/image/house_3.jpg" },
+    { id: 4, title: "Community Participation", url: "/image/house_4.jpg" },
+    { id: 5, title: "Numbered Houses", url: "/image/house_5.jpg" },
+    { id: 6, title: "Completed Project", url: "/image/house_6.mp4", type: "video" as const }
   ];
 
-  // Pastikan totalHouses tidak nol untuk menghindari pembagian dengan nol
   const averagePerHouse = houseData.totalHouses > 0
     ? (houseData.totalResidents / houseData.totalHouses).toFixed(1)
     : 'N/A';
@@ -190,46 +180,11 @@ export default function HouseNumbering() {
             </CardContent>
           </Card>
         </div>
-
-        {/* Photo Gallery Section */}
-        <Card className="shadow-lg">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Camera className="h-5 w-5 text-green-600" />
-              <span>House Numbering Project Gallery</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {housePhotos.map((photo) => (
-                <div key={photo.id} className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
-                  <div className="aspect-square flex items-center justify-center overflow-hidden bg-gradient-to-br from-green-100 to-blue-100">
-                    <img
-                      src={photo.url}
-                      alt={photo.title}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.currentTarget.onerror = null;
-                        e.currentTarget.src = "/placeholder.svg";
-                      }}
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-end">
-                    <div className="w-full p-3 bg-gradient-to-t from-black/70 to-transparent text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                      <p className="text-sm font-medium">{photo.title}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-6 text-center">
-              <p className="text-gray-600 text-sm">
-                Upload actual house numbering project photos to showcase the village development initiative.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+        <PhotoGallery 
+          photos={housePhotos} 
+          title="House Numbering Project Gallery" 
+          iconColor="text-green-600" 
+        />
       </div>
     </DashboardLayout>
   );
