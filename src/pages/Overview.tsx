@@ -1,9 +1,24 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { DataCard } from "@/components/DataCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Home, Users, Activity, Calendar, TrendingUp } from "lucide-react";
+import { Home, Users, Activity, Calendar, TrendingUp, MapPin } from "lucide-react";
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+const customMarkerIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
 
 export default function Overview() {
+  const position: L.LatLngExpression = [-8.185093026404976, 110.97966157791248];
+
   return (
     <DashboardLayout>
       <div className="space-y-6">
@@ -39,7 +54,7 @@ export default function Overview() {
           
           <DataCard
             title="Satisfaction Rate"
-            value="100%"
+            value="87%"
             subtitle="Overall satisfaction"
             icon={<TrendingUp className="h-6 w-6" />}
             gradient="from-teal-500 to-teal-600"
@@ -121,6 +136,30 @@ export default function Overview() {
             </CardContent>
           </Card>
         </div>
+
+        <Card className="shadow-lg">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2">
+              <MapPin className="h-5 w-5 text-red-600" />
+              <span>Project Location</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[400px] w-full rounded-lg overflow-hidden">
+              <MapContainer center={position} zoom={14} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={position} icon={customMarkerIcon}>
+                  <Popup>
+                    <b>Lokasi Proyek KKN</b> <br /> Desa Gubugklakah, Poncokusumo, Malang.
+                  </Popup>
+                </Marker>
+              </MapContainer>
+            </div>
+          </CardContent>
+        </Card>
 
         <Card className="shadow-lg">
           <CardHeader>
