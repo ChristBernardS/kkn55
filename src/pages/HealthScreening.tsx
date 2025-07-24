@@ -1,7 +1,8 @@
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { DataCard } from "@/components/DataCard";
+import { PhotoGallery } from "@/components/PhotoGallery";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Users, AlertTriangle, Activity, User, Loader2, Home } from "lucide-react";
+import { Heart, Users, AlertTriangle, Activity, User, Loader2, Home, Droplet, Thermometer } from "lucide-react"; // Import new icons
 import { useQuery } from "@tanstack/react-query";
 import { fetchHealthScreeningData } from "@/utils/csvUtils";
 
@@ -71,6 +72,16 @@ export default function HealthScreening() {
       return `${startDateStr} - ${endDateStr}`;
     }
   };
+
+  const healthPhotos = [
+    { id: 1, title: "Blood Pressure Check", url: "/image/health_1.jpg" },
+    { id: 2, title: "Health Consultation", url: "/image/health_2.jpg" },
+    { id: 3, title: "Medical Examination", url: "/image/health_3.jpg" },
+    { id: 4, title: "Uric Acid Check", url: "/image/health_4.jpg" },
+    { id: 5, title: "Community Health Event", url: "/image/health_5.jpg" },
+    { id: 6, title: "Event Compilation", url: "/image/health_7.mp4", type: "video" as const }
+  ];
+
 
   return (
     <DashboardLayout>
@@ -145,6 +156,29 @@ export default function HealthScreening() {
           />
         </div>
 
+        {/* New row for average values */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <DataCard
+            title="Average Blood Sugar"
+            value={`${formatNumber(healthData.averageBloodSugar)} mg/dL`}
+            icon={<Droplet className="h-6 w-6" />}
+            gradient="from-blue-400 to-blue-500"
+          />
+          <DataCard
+            title="Average Uric Acid"
+            value={`${formatNumber(healthData.averageUricAcid)} mg/dL`}
+            icon={<Thermometer className="h-6 w-6" />}
+            gradient="from-green-400 to-green-500"
+          />
+          <DataCard
+            title="Average Blood Pressure"
+            value={`${healthData.averageBloodPressure || 'N/A'} mmHg`}
+            icon={<Heart className="h-6 w-6" />}
+            gradient="from-purple-400 to-purple-500"
+          />
+        </div>
+
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card className="shadow-lg">
             <CardHeader>
@@ -206,6 +240,11 @@ export default function HealthScreening() {
             </CardContent>
           </Card>
         </div>
+        <PhotoGallery 
+            photos={healthPhotos} 
+            title="Health Screening Photo Gallery" 
+            iconColor="text-red-600" 
+          />
       </div>
     </DashboardLayout>
   );
