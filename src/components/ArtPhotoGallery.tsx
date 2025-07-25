@@ -1,7 +1,7 @@
 import { PhotoGallery } from "./PhotoGallery";
 
 export function ArtPhotoGallery() {
-  // Mock photo data - replace with actual photo URLs when available
+  
   const photos = [
     { id: 1, title: "Group Photo", url: "/image/umkm_1.jpg" },
     { id: 2, title: "Pict 1", url: "/image/umkm_2.jpg" },
@@ -18,10 +18,11 @@ export function ArtPhotoGallery() {
     { id: 13, title: "Sosialisasi 9", url: "/image/umkm_14.jpg" },
     { id: 14, title: "Sosialisasi 10", url: "/image/umkm_15.jpg" },
     { id: 15, title: "Sosialisasi 11", url: "/image/umkm_17.jpg" },
-    { id: 15, title: "Event Compilation", url: "/image/umkm_16.mp4", type: "video" as const },
+    { id: 16, title: "Produk Ecoprint", url: "/image/umkm_18.jpg" },
+    { id: 17, title: "Event Compilation", url: "/image/umkm_16.mp4", type: "video" as const },
   ];
 
-  return (    
+  return (
   <PhotoGallery 
       photos={photos} 
       title="Event Photo Gallery" 
