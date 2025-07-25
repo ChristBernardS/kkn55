@@ -72,7 +72,7 @@ const members: Member[] = [
         id: 8,
         name: "Yehezkiel Ardy Herwangga",
         photo: "/image/prof_8.jpg",
-        quote: "Our collective strength lies in our individual differences.",
+        quote: "Syukuri apa yang ada dan terima apa adanya dengan hidup penuh rasa syukur serta menerima semuanya dengan penuh rasa lapang dada, karena bahagiaan yang sejati terletak pada kesederhanaan.",
         description: "Desdok Kelompok.",
         initials: "YAH"
     }
