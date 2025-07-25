@@ -1,7 +1,6 @@
 import { PhotoGallery } from "./PhotoGallery";
 
 export function ArtPhotoGallery() {
-  
   const photos = [
     { id: 1, title: "Group Photo", url: "/image/umkm_1.jpg" },
     { id: 2, title: "Pict 1", url: "/image/umkm_2.jpg" },
@@ -16,10 +15,11 @@ export function ArtPhotoGallery() {
     { id: 11, title: "Sosialisasi 7", url: "/image/umkm_12.mp4", type: "video" as const },
     { id: 12, title: "Sosialisasi 8", url: "/image/umkm_13.jpg" },
     { id: 13, title: "Sosialisasi 9", url: "/image/umkm_14.jpg" },
-    { id: 14, title: "Sosialisasi 10", url: "/image/umkm_15.jpg" },
     { id: 15, title: "Sosialisasi 11", url: "/image/umkm_17.jpg" },
     { id: 16, title: "Produk Ecoprint", url: "/image/umkm_18.jpg" },
-    { id: 17, title: "Event Compilation", url: "/image/umkm_16.mp4", type: "video" as const },
+    { id: 17, title: "Produk", url: "/image/umkm_19.mp4", type: "video" as const },
+    { id: 18, title: "Tutorial video", url: "/image/umkm_20.mp4", type: "video" as const },
+    { id: 19, title: "Event Compilation", url: "/image/umkm_16.mp4", type: "video" as const },
   ];
 
   return (
