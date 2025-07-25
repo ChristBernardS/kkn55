@@ -85,37 +85,37 @@ export default function ArtEvent() {
       <div className="space-y-6">
         <div className="flex items-center space-x-3">
           <ShoppingBag className="h-8 w-8 text-purple-600" />
-          <h1 className="text-3xl font-bold text-gray-900">UMKM Dashboard</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Dashboard Sosialisasi UMKM</h1>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <DataCard
-            title="Total Residents"
+            title="Jumlah Penduduk"
             value={mainEvent.totalResidents}
             icon={<Users className="h-6 w-6" />}
             gradient="from-purple-500 to-purple-600"
           />
           
           <DataCard
-            title="Event Attendance"
+            title="Jumlah Kehadiran"
             value={mainEvent.attendedEvent}
-            subtitle={`${attendanceRate}% attendance rate`}
+            subtitle={`${attendanceRate}% Tingkat Kehadiran`}
             icon={<Calendar className="h-6 w-6" />}
             gradient="from-pink-500 to-pink-600"
           />
           
           <DataCard
-            title="Satisfaction Rate"
+            title="Tingkat Kepuasan"
             value={`${mainEvent.satisfactionPercent}%`}
-            subtitle="Overall satisfaction"
+            subtitle="Kepuasan keseluruhan"
             icon={<Star className="h-6 w-6" />}
             gradient="from-green-500 to-green-600"
           />
 
           <DataCard
-            title="Event Duration"
-            value={`${mainEvent.duration}min`}
-            subtitle="Total program time"
+            title="Durasi acara"
+            value={`${mainEvent.duration} menit`}
+            subtitle="Jumlah waktu kegiatan"
             icon={<Clock className="h-6 w-6" />}
             gradient="from-blue-500 to-blue-600"
           />
@@ -128,25 +128,25 @@ export default function ArtEvent() {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <MapPin className="h-5 w-5 text-purple-600" />
-                <span>Event Details</span>
+                <span>Rincian Kegiatan</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
-                  <span className="text-gray-700 font-medium">Program Title:</span>
+                  <span className="text-gray-700 font-medium">Judul Program:</span>
                   <span className="font-bold text-purple-900">{mainEvent.programTitle}</span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                  <span className="text-gray-700 font-medium">Event Date:</span>
+                  <span className="text-gray-700 font-medium">Tanggal Pelaksanaan:</span>
                   <span className="font-bold text-blue-900">{formatSingleDate(mainEvent.eventDate)}</span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
-                  <span className="text-gray-700 font-medium">Duration:</span>
+                  <span className="text-gray-700 font-medium">Durasi:</span>
                   <span className="font-bold text-green-900">{mainEvent.duration} minutes</span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-pink-50 rounded-lg">
-                  <span className="text-gray-700 font-medium">Location:</span>
+                  <span className="text-gray-700 font-medium">Lokasi:</span>
                   <span className="font-bold text-pink-900">Balai Dusun Sumur</span>
                 </div>
               </div>
@@ -158,29 +158,29 @@ export default function ArtEvent() {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Star className="h-5 w-5 text-yellow-600" />
-                <span>Event Summary</span>
+                <span>Ringkasan Kegiatan</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div className="text-center p-4 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg">
                   <div className="text-2xl font-bold text-purple-900">{attendanceRate}%</div>
-                  <div className="text-sm text-purple-700">Attendance Rate</div>
+                  <div className="text-sm text-purple-700">Tingkat Kehadiran</div>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-3">
                   <div className="text-center p-3 bg-blue-50 rounded-lg">
                     <div className="text-lg font-bold text-blue-900">{mainEvent.attendedEvent}</div>
-                    <div className="text-xs text-blue-700">Participants</div>
+                    <div className="text-xs text-blue-700">Partisipasi</div>
                   </div>
                   <div className="text-center p-3 bg-green-50 rounded-lg">
                     <div className="text-lg font-bold text-green-900">{mainEvent.satisfactionPercent}%</div>
-                    <div className="text-xs text-green-700">Satisfaction</div>
+                    <div className="text-xs text-green-700">Kepuasan</div>
                   </div>
                 </div>
 
                 <div className="text-sm text-gray-600 p-3 bg-gray-50 rounded-lg">
-                  <strong>Key Highlights:</strong> The event successfully engaged the community with diverse creative insights, achieving high satisfaction rates across all program segments.
+                  <strong>Catatan:</strong> Acara ini berhasil melibatkan masyarakat dengan beragam wawasan kreatif, mencapai tingkat kepuasan yang tinggi di semua segmen program.
                 </div>
               </div>
             </CardContent>
@@ -190,10 +190,10 @@ export default function ArtEvent() {
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-gray-900 flex items-center space-x-2">
             <ShoppingBag className="h-6 w-6 text-purple-600" />
-            <span>Program Sub-Dashboards</span>
+            <span>Program Kerja Individu</span>
           </h2>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
             {subEvents.map((subEvent, index) => (
               <ArtSubDashboard 
                 key={index} 
@@ -202,7 +202,8 @@ export default function ArtEvent() {
               />
             ))}
           </div>
-        </div>
+
+          </div>
         <ArtPhotoGallery />
       </div>
     </DashboardLayout>
