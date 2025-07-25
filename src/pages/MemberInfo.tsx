@@ -56,7 +56,7 @@ const members: Member[] = [
         id: 6,
         name: "Elsava Vidiarama Puteri Permata",
         photo: "/image/prof_6.jpg",
-        quote: "Life is tough, so I'm gentle—to keep things balanced.",
+        quote: "The smile may be sweet, but the content of our conversation is like stand-up comedy.",
         description: "Desdok Kelompok.",
         initials: "EVPP"
     },
