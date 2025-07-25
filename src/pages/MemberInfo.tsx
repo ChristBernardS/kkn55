@@ -16,64 +16,64 @@ const members: Member[] = [
         id: 1,
         name: "Nathanael Syiar Damaiputra",
         photo: "/image/prof_1.jpg",
-        quote: "Community is where life begins and love never ends.",
-        description: "Nathanael is a passionate advocate for local empowerment, with over a decade of experience in community development. He has successfully launched several initiatives focused on sustainable living and youth mentorship, believing deeply in the power of collective action to create lasting positive change.",
+        quote: "It's not about how much you give, but how far you're willing to go for change. That's beyond limits.",
+        description: "Ketua Kelompok.",
         initials: "NSD"
     },
     {
         id: 2,
         name: "Nova Febriani",
-        photo: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=400&h=600&fit=crop&crop=face",
-        quote: "Innovation thrives when diverse minds collaborate.",
-        description: "Nova brings a fresh perspective to community engagement through her expertise in digital communication and social media. She specializes in creating vibrant online spaces that connect residents and amplify local voices, fostering a stronger, more informed community.",
+        photo: "/image/prof_2.jpg",
+        quote: "Sudut kota - pegunungan - pantai di Pacitan menjadi saksi cerita baru di tahun ini yang kini menjadi memori indah. Perjalanan akan berkesan apabila dirasakan dengan hati yang sukacita. Meskipun ini singkat tapi sangat membekas. Terimakasih, hadirnya kalian kelompok 55 mengisi ruang kosong hati ini & terbanglah setinggi mungkin raih cita - cita yang kalian harapkan. Doaku selalu mengiringi kalian semua!!",
+        description: "Humas Kelompok.",
         initials: "NF"
     },
     {
         id: 3,
         name: "I Made Wira Adi Sentana",
-        photo: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=400&h=600&fit=crop&crop=face",
-        quote: "Every small act of kindness creates ripples of positive change.",
-        description: "Wira is a dedicated volunteer and a true pillar of the community, known for his tireless efforts in organizing local clean-up drives and food donation campaigns. His commitment to humanitarian causes inspires those around him to contribute to a more compassionate society.",
+        photo: "/image/prof_3.jpg",
+        quote: "Jangan pernah samakan kemampuanmu dengan orang lain, sebab tak semua orang mampu melakukan apa yang kamu lakukan.",
+        description: "Sekretaris Kelompok.",
         initials: "IMWAS"
     },
     {
         id: 4,
         name: "Juan Fortunasua Helka",
-        photo: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=600&fit=crop&crop=face",
-        quote: "Art has the power to transform spaces and touch souls.",
-        description: "Juan, a talented graphic designer, enriches our community by visually communicating important messages and events. He transforms ideas into captivating visuals, making information accessible and engaging for all residents, and adding an artistic touch to community initiatives.",
+        photo: "/image/prof_4.jpg",
+        quote: "you will never know the value of moment, till it becomes a memory.",
+        description: "Bendahara Kelompok.",
         initials: "JFH"
     },
     {
         id: 5,
         name: "Ida Ayu Nyoman Handaru Dyah Komala",
-        photo: "https://images.unsplash.com/photo-1485833077593-4278bba3f11f?w=400&h=600&fit=crop&crop=face",
-        quote: "Sustainability today ensures a better tomorrow for our children.",
-        description: "Ida Ayu is an environmental enthusiast and an active proponent of sustainable practices within the community. She champions eco-friendly initiatives, from organizing recycling programs to educating residents on conservation, striving to create a greener and healthier local environment.",
+        photo: "/image/prof_5.jpg",
+        quote: "bukan tentang sejauh apa kita pergi, tapi seberapa dalam kita terhubung. KKN bukan sekadar tugas ini tentang tumbuh, berbagi, dan merasa hidup di tempat yang sederhana.",
+        description: "Sekretaris Kelompok.",
         initials: "IANHDK"
     },
     {
         id: 6,
         name: "Elsava Vidiarama Puteri Permata",
-        photo: "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=400&h=600&fit=crop&crop=face",
-        quote: "Leadership is about empowering others to reach their potential.",
-        description: "Elsava is a dynamic leader in the local business community, bringing valuable insights into fostering economic growth and opportunity. She actively mentors aspiring entrepreneurs and works to connect local businesses with community needs, strengthening the local economy.",
+        photo: "/image/prof_6.jpg",
+        quote: "Life is tough, so I'm gentle—to keep things balanced.",
+        description: "Desdok Kelompok.",
         initials: "EVPP"
     },
     {
         id: 7,
         name: "Christopher Bernard Suryanto",
-        photo: "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=400&h=600&fit=crop&fit=crop&face",
-        quote: "Building bridges, not walls, creates stronger communities.",
-        description: "Christopher is a community liaison, adept at connecting diverse groups and facilitating open dialogue. He is instrumental in organizing town halls and forums, ensuring every voice is heard and contributing to a more inclusive and harmonious community.",
+        photo: "/image/prof_7.jpg",
+        quote: "I thought leveling up only happened in games, until my friends invited me on real-world adventures, proving that the best experience points are collected not from a screen, but from the journeys we take and the laughter we share.",
+        description: "Perkab Kelompok.",
         initials: "CBS"
     },
     {
         id: 8,
         name: "Yehezkiel Ardy Herwangga",
-        photo: "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=400&h=600&fit=crop&crop=face",
+        photo: "/image/prof_8.jpg",
         quote: "Our collective strength lies in our individual differences.",
-        description: "Yehezkiel is a dedicated volunteer coordinator, tirelessly working to match community needs with willing hands. He inspires countless individuals to give back, fostering a culture of service and making a tangible difference in the lives of many.",
+        description: "Desdok Kelompok.",
         initials: "YAH"
     }
 ];
@@ -95,8 +95,8 @@ const MemberSlide: React.FC<{ member: Member; isVisible: boolean }> = ({ member,
         </div>
 
         {/* Right side - Content with dark background */}
-        <div className="w-3/4 bg-slate-800 text-white flex items-start p-16"> {/* MODIFIED: items-center to items-start */}
-            <div className="space-y-4 max-w-2xl animate-fade-in">
+        <div className="w-3/4 bg-slate-800 text-white flex items-center p-16">
+            <div className="space-y-4 max-w-3xl animate-fade-in">
                 {/* Name as main title */}
                 <h1 className="text-5xl font-bold font-playfair leading-tight">
                     {member.name}
@@ -109,7 +109,7 @@ const MemberSlide: React.FC<{ member: Member; isVisible: boolean }> = ({ member,
 
                 {/* Description */}
                 <div className="space-y-4">
-                    <p className="text-base leading-relaxed text-slate-200 line-clamp-4">
+                    <p className="text-base leading-relaxed text-slate-400 line-clamp-4">
                         {member.description}
                     </p>
                 </div>
