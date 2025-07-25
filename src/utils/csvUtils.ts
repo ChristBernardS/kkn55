@@ -14,20 +14,19 @@ export interface HealthScreeningData {
   attended: number;
   highBloodSugar: number;
   highUricAcid: number;
-  highBloodPressure: number | string; // Bisa number atau string (e.g., '120/80')
-  lowBloodPressure: number | string; // Bisa number atau string
+  highBloodPressure: number | string;
+  lowBloodPressure: number | string;
   mostCommonComplaint: string;
   highestBloodSugar: number;
   highestUricAcid: number;
-  highestBloodPressure: string; // Tetap string untuk '120/80'
+  highestBloodPressure: string;
   averageAge: number;
   doorToDoorAttendance: number;
   programDateSta: string;
   programDateEnd: string;
-  // New fields for averages
   averageBloodSugar: number;
   averageUricAcid: number;
-  averageBloodPressure: string; // Assuming 'X/Y' format for display
+  averageBloodPressure: string;
 }
 
 export interface ArtEventData {
@@ -46,7 +45,8 @@ export interface ArtSubEventData {
   satisfactionPercent: number;
   eventDate: string;
   duration: number;
-  programSummary: string; // Tambahkan field ini
+  programSummary: string;
+  eventProdi: string;
 }
 
 export interface HouseNumberingData {
@@ -133,7 +133,6 @@ export const fetchHealthScreeningData = async (): Promise<HealthScreeningData> =
       doorToDoorAttendance: NaN,
       programDateSta: 'N/A',
       programDateEnd: 'N/A',
-      // Default values for new fields
       averageBloodSugar: NaN,
       averageUricAcid: NaN,
       averageBloodPressure: 'N/A',
@@ -155,9 +154,9 @@ export const fetchHealthScreeningData = async (): Promise<HealthScreeningData> =
         if (!isNaN(parsed)) {
             data[header] = parsed;
         } else {
-            data[header] = value; // Keep as string if parsing to number fails (e.g., '120/80')
+            data[header] = value;
         }
-      } else if (['highestBloodPressure', 'averageBloodPressure'].includes(header)) { // Include averageBloodPressure here
+      } else if (['highestBloodPressure', 'averageBloodPressure'].includes(header)) {
         data[header] = value;
       } else {
         data[header] = value;
@@ -214,7 +213,6 @@ export const fetchArtEventData = async (): Promise<{
     allRowsData.push(rowData);
   }
 
-  // Assume the first row is the main event, and subsequent rows are sub-events
   const mainEventData = allRowsData[0] || {};
   const subEventData = allRowsData.slice(1);
 
@@ -234,7 +232,8 @@ export const fetchArtEventData = async (): Promise<{
     satisfactionPercent: data.satisfactionPercent || 0,
     eventDate: data.eventDate || '',
     duration: data.duration || 0,
-    programSummary: data.programSummary || 'No summary available', // Pastikan ini di-parse
+    programSummary: data.programSummary || 'No summary available',
+    eventProdi: data.eventProdi || 'No summary available',
   }));
 
   console.log('Parsed main event data:', mainEvent);
