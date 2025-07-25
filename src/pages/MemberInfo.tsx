@@ -40,7 +40,7 @@ const members: Member[] = [
         id: 4,
         name: "Juan Fortunasua Helka",
         photo: "/image/prof_4.jpg",
-        quote: "you will never know the value of moment, till it becomes a memory.",
+        quote: "you will never know the value of a moment, till it becomes a memory.",
         description: "Bendahara Kelompok.",
         initials: "JFH"
     },
