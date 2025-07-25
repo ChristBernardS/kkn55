@@ -2,7 +2,7 @@ import { DashboardLayout } from "@/components/DashboardLayout";
 import { DataCard } from "@/components/DataCard";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Home, Users, Activity, Calendar, TrendingUp, MapPin } from "lucide-react";
+import { Home, Users, Activity, Calendar, TrendingUp, MapPin, NotebookText } from "lucide-react";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -193,6 +193,22 @@ export default function Overview() {
             </div>
           </CardContent>
         </Card>
+
+        <div className="mt-4 p-3 bg-orange-50 rounded-lg border-l-4 border-orange-300">
+          <div className="flex items-center space-x-2 mb-2">
+            <NotebookText className="h-5 w-5 text-gray-700" />
+            <span className="font-semibold text-gray-800">Notes:</span>
+          </div>
+          <p className="text-sm text-gray-700 leading-relaxed">
+            Program Kuliah Kerja Nyata (KKN) ini dilaksanakan di <strong>Dusun Sumur, Desa Dersono, Kabupaten Pacitan</strong>. 
+            Dusun ini menghadapi beberapa tantangan signifikan:
+            <ul className="list-disc pl-5 mt-2">
+              <li>Mayoritas warga (sekitar 60%) didominasi oleh lansia.</li>
+              <li>Akses menuju lokasi sulit dijangkau karena kondisi jalan yang masih buruk.</li>
+              <li>Terdapat kesulitan dalam mendapatkan sinyal telekomunikasi dan akses air bersih yang terbatas.</li>
+            </ul>
+          </p>
+        </div>
 
         <PhotoGallery 
           photos={dailyActivities} 
