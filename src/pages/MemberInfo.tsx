@@ -134,11 +134,11 @@ export default function MemberInfo() {
             <div className="space-y-8">
                 {/* Header */}
                 <div className="text-center">
-                    <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
-                        Meet Our Team
+                    <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent py-1">
+                        Anggota Kelompok
                     </h1>
                     <p className="text-muted-foreground mt-2 text-lg">
-                        Get to know the dedicated individuals who make our team special
+                        Perkenalan anggota kelompok
                     </p>
                 </div>
 
@@ -168,7 +168,7 @@ export default function MemberInfo() {
 
                 {/* Social Media Footer */}
                 <div className="text-center pt-2">
-                    <h3 className="text-xl font-semibold mb-4">Follow Our Social Media</h3>
+                    <h3 className="text-xl font-semibold mb-4">Ikuti Akun Sosial Media Kami</h3>
                     <div className="flex justify-center space-x-8">
                         <a
                             href="https://www.instagram.com/kkn.ukdw_dusun.sumur_kel_55?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
