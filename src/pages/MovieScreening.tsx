@@ -4,7 +4,7 @@ import { DashboardLayout } from "@/components/DashboardLayout";
 import { DataCard } from "@/components/DataCard";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Film, Users, Star, Calendar, Loader2 } from "lucide-react";
+import { Film, Users, Star, Calendar, Loader2, CheckCircle, XCircle, Target, AlertTriangle, Lightbulb, CircleDollarSign } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMovieScreeningData } from "@/utils/csvUtils";
 
@@ -51,27 +51,27 @@ export default function MovieScreening() {
 
   console.log('Movie data loaded:', movieData);
 
-  const attendanceRate = movieData.totalResidents > 0 
-    ? Math.round((movieData.attendedEvent / movieData.totalResidents) * 100) 
+  const attendanceRate = movieData.totalResidents > 0
+    ? Math.round((movieData.attendedEvent / movieData.totalResidents) * 100)
     : 0;
 
   const moviePhotos = [
-    { id: 1, title: "Group Photo", url: "/image/movie_1.jpg" },
-    { id: 2, title: "Audience Enjoying Film", url: "/image/movie_2.mp4", type: "video" as const },
-    { id: 3, title: "Movie Night Setup", url: "/image/movie_3.jpg" },
-    { id: 4, title: "Community Gathering", url: "/image/movie_4.jpg" },
-    { id: 5, title: "Event Compilation", url: "/image/movie_7.mp4", type: "video" as const },
-    { id: 6, title: "Preparation", url: "/image/movie_6.jpg" }
+    { id: 1, title: "Foto Bersama", url: "/image/movie_1.jpg" },
+    { id: 2, title: "Warga Menikmati Film", url: "/image/movie_2.mp4", type: "video" as const },
+    { id: 3, title: "Persiapan Program Kerja", url: "/image/movie_3.jpg" },
+    { id: 4, title: "Warga Hadir di Tempat Acara Berlangsung", url: "/image/movie_4.jpg" },
+    { id: 5, title: "Video Kumpulan Kegiatan", url: "/image/movie_7.mp4", type: "video" as const },
+    { id: 6, title: "Persiapan Program Kerja", url: "/image/movie_6.jpg" }
   ];
 
-  const formatNumber = (num: number | string | undefined): string => 
+  const formatNumber = (num: number | string | undefined): string =>
     (typeof num === 'number' && !isNaN(num)) ? String(num) : 'N/A';
 
   const formatSingleDate = (dateStr: string | undefined): string => {
     if (!dateStr || dateStr === 'N/A') {
       return 'N/A';
     }
-    
+
     try {
       const parts = dateStr.split('/');
       if (parts.length !== 3) {
@@ -107,35 +107,35 @@ export default function MovieScreening() {
       <div className="space-y-6">
         <div className="flex items-center space-x-3">
           <Film className="h-8 w-8 text-blue-600" />
-          <h1 className="text-3xl font-bold text-gray-900">Cinema Dashboard</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Dashboard Nonton Bersama</h1>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <DataCard
-            title="Total Residents"
+            title="Jumlah Penduduk"
             value={formatNumber(movieData.totalResidents)}
             icon={<Users className="h-6 w-6" />}
             gradient="from-blue-500 to-blue-600"
           />
-          
+
           <DataCard
-            title="Event Attendance"
+            title="Jumlah Kehadiran"
             value={formatNumber(movieData.attendedEvent)}
-            subtitle={`${formatNumber(attendanceRate)}% attendance rate`}
+            subtitle={`${formatNumber(attendanceRate)}% tingkat kehadiran`}
             icon={<Calendar className="h-6 w-6" />}
             gradient="from-teal-500 to-teal-600"
           />
-          
+
           <DataCard
-            title="Satisfaction Rate"
+            title="Tingkat Kepuasan"
             value={`${formatNumber(movieData.satisfactionPercent)}%`}
-            subtitle="Overall satisfaction"
+            subtitle="Kepuasan keseluruhan"
             icon={<Star className="h-6 w-6" />}
             gradient="from-green-500 to-green-600"
           />
-          
+
           <DataCard
-            title="Featured Movie"
+            title="Film yang Diputar"
             value={movieData.movieTitle ? movieData.movieTitle.split(' ').slice(0, 2).join(' ') : 'N/A'}
             subtitle={movieData.movieTitle || 'No title available'}
             icon={<Film className="h-6 w-6" />}
@@ -148,23 +148,22 @@ export default function MovieScreening() {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Film className="h-5 w-5 text-blue-600" />
-                <span>Movie Details</span>
+                <span>Rincian Film</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                  <span className="font-medium text-gray-700">Title:</span>
+                  <span className="font-medium text-gray-700">Judul:</span>
                   <span className="text-gray-900">{movieData.movieTitle || 'N/A'}</span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                  <span className="font-medium text-gray-700">Program Date:</span>
-                  {/* Panggil fungsi formatSingleDate di sini */}
+                  <span className="font-medium text-gray-700">Tanggal Dilaksanakannya Program:</span>
                   <span className="text-gray-900">{formatSingleDate(movieData.screeningDate)}</span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                  <span className="font-medium text-gray-700">Duration:</span>
-                  <span className="text-gray-900">{formatNumber(movieData.duration)} minutes</span>
+                  <span className="font-medium text-gray-700">Durasi Film:</span>
+                  <span className="text-gray-900">{formatNumber(movieData.duration)} menit</span>
                 </div>
               </div>
             </CardContent>
@@ -174,34 +173,250 @@ export default function MovieScreening() {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Users className="h-5 w-5 text-teal-600" />
-                <span>Attendance Summary</span>
+                <span>Ringkasan Acara</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-700">Residents Attended</span>
-                  <span className="font-bold text-2xl text-teal-600">{formatNumber(movieData.attendedEvent)}</span>
+                  <span className="text-gray-700">Durasi Kegiatan</span>
+                  <span className="font-bold text-1xl text-teal-600">120 menit</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-700">Penduduk Hadir</span>
+                  <span className="font-bold text-1xl text-teal-600">{formatNumber(movieData.attendedEvent)}</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-3">
-                  <div 
+                  <div
                     className="bg-gradient-to-r from-teal-500 to-blue-500 h-3 rounded-full transition-all duration-500"
                     style={{ width: `${attendanceRate}%` }}
                   ></div>
                 </div>
                 <div className="flex justify-between text-sm text-gray-600">
                   <span>0</span>
-                  <span>{formatNumber(attendanceRate)}% attendance</span>
+                  <span>{formatNumber(attendanceRate)}% kehadiran</span>
                   <span>{formatNumber(movieData.totalResidents)}</span>
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
-        <PhotoGallery 
-          photos={moviePhotos} 
-          title="Movie Screening Photo Gallery" 
-          iconColor="text-blue-600" 
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          <Card className="shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Target className="h-5 w-5 text-green-600" />
+                <span>Indikator Keberhasilan</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="min-h-5 min-w-5 text-green-500" />
+                  <span className="text-sm text-gray-700">Minimal 50% dari total warga desa hadir dalam kegiatan.</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <XCircle className="min-h-5 min-w-5 text-red-500" />
+                  <span className="text-sm text-gray-700">Warga yang hadir mampu mengikuti kegiatan sampai selesai.</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="min-h-5 min-w-5 text-green-500" />
+                  <span className="text-sm text-gray-700">Terciptanya interaksi positif antar warga selama kegiatan berlangsung.</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="min-h-5 min-w-5 text-green-500" />
+                  <span className="text-sm text-gray-700">Meningkatnya antusiasme warga terhadap kegiatan KKN.</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <AlertTriangle className="h-5 w-5 text-orange-600" />
+                <span>Kendala</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-3 text-sm text-gray-700">
+                <li className="flex items-start space-x-3">
+                  <div className="min-w-2 min-h-2 bg-orange-500 rounded-full mt-2"></div>
+                  <span>Usia warga yang beragam</span>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <div className="min-w-2 min-h-2 bg-orange-500 rounded-full mt-2"></div>
+                  <span>Keterbatasan infrastruktur yaitu sinyal internet</span>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <div className="min-w-2 min-h-2 bg-orange-500 rounded-full mt-2"></div>
+                  <span>Komunikasi yang sulit dijalankan</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Lightbulb className="h-5 w-5 text-blue-600" />
+                <span>Solusi</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-3 text-sm text-gray-700">
+                <li className="flex items-start space-x-3">
+                  <div className="min-w-2 min-h-2 bg-blue-500 rounded-full mt-2"></div>
+                  <span>Pemilihan film yang bisa ditonton oleh semua kalangan usia</span>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <div className="min-w-2 min-h-2 bg-blue-500 rounded-full mt-2"></div>
+                  <span>Mengunduh film sebelum program KKN dilaksanakan</span>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <div className="min-w-2 min-h-2 bg-blue-500 rounded-full mt-2"></div>
+                  <span>Meminta pertolongan Ibu Kasun untuk menyebarkan informasi terkait tanggal acara diadakan</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <CheckCircle className="h-5 w-5 text-purple-600" />
+                <span>Luaran yang Dicapai</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-3 text-sm text-gray-700">
+                <li className="flex items-start space-x-3">
+                  <div className="min-w-2 min-h-2 bg-purple-500 rounded-full mt-2"></div>
+                  <span>Jumlah kehadiran diatas 50%</span>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <div className="min-w-2 min-h-2 bg-purple-500 rounded-full mt-2"></div>
+                  <span>Terciptanya interaksi positif antarwarga</span>
+                </li>
+                <li className="flex items-start space-x-3">
+                  <div className="min-w-2 min-h-2 bg-purple-500 rounded-full mt-2"></div>
+                  <span>Meningkatnya antusias warga terhadap kegiatan KKN</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+          <Card className="shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Calendar className="h-5 w-5 text-teal-600" />
+                <span>Jadwal Kegiatan</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <div className="text-xs font-mono text-gray-600 min-w-[80px]">19:30</div>
+                  <div className="text-sm text-gray-700">Persiapan Alat</div>
+                </div>
+                <div className="flex items-start space-x-3 p-3 bg-blue-50 rounded-lg">
+                  <div className="text-xs font-mono text-blue-600 min-w-[80px]">20:00</div>
+                  <div className="text-sm text-gray-700">Pembukaan dan Sambutan</div>
+                </div>
+                <div className="flex items-start space-x-3 p-3 bg-teal-50 rounded-lg">
+                  <div className="text-xs font-mono text-teal-600 min-w-[80px]">20:15</div>
+                  <div className="text-sm text-gray-700">Penjelasan Alat, Edukasi Teknologi</div>
+                </div>
+                <div className="flex items-start space-x-3 p-3 bg-green-50 rounded-lg">
+                  <div className="text-xs font-mono text-green-600 min-w-[80px]">20:20</div>
+                  <div className="text-sm text-gray-700">Pemutaran Film</div>
+                </div>
+                <div className="flex items-start space-x-3 p-3 bg-purple-50 rounded-lg">
+                  <div className="text-xs font-mono text-purple-600 min-w-[80px]">22:15</div>
+                  <div className="text-sm text-gray-700">Survey Kepuasan Warga dan Penyampaian Pesan Moral Film</div>
+                </div>
+                <div className="flex items-start space-x-3 p-3 bg-orange-50 rounded-lg">
+                  <div className="text-xs font-mono text-orange-600 min-w-[80px]">22:20</div>
+                  <div className="text-sm text-gray-700">Foto Bersama dan Penutupan</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <CircleDollarSign className="h-5 w-5 text-teal-600" />
+                <span>Anggaran</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-sm">
+                {/* Header */}
+                <div className="flex items-center border-b font-semibold text-gray-600 pb-2 mb-2">
+                  <span className="w-10 text-center">No</span>
+                  <span className="flex-1 px-2">Nama Barang</span>
+                  <span className="w-24 text-center px-2">Total Barang</span>
+                  <span className="w-24 text-center px-2">Keterangan</span>
+                  <span className="w-32 text-right px-2">Harga Satuan</span>
+                  <span className="w-32 text-right px-2">Harga Total</span>
+                </div>
+
+                {/* Body */}
+                <div className="space-y-1">
+                  {/* Row 1 */}
+                  <div className="flex items-center hover:bg-gray-50 p-2 rounded-md">
+                    <span className="w-10 text-center text-gray-500">1</span>
+                    <span className="flex-1 px-2 text-gray-800">Proyektor</span>
+                    <span className="w-24 text-center px-2 text-gray-800 font-mono">1</span>
+                    <span className="w-24 text-center px-2 text-gray-800 font-mono">Minjam</span>
+                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
+                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
+                  </div>
+                  {/* Row 2 */}
+                  <div className="flex items-center hover:bg-gray-50 p-2 rounded-md">
+                    <span className="w-10 text-center text-gray-500">2</span>
+                    <span className="flex-1 px-2 text-gray-800">Layar</span>
+                    <span className="w-24 text-center px-2 text-gray-800 font-mono">1</span>
+                    <span className="w-24 text-center px-2 text-gray-800 font-mono">Minjam</span>
+                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
+                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
+                  </div>
+                  {/* Row 3 */}
+                  <div className="flex items-center hover:bg-gray-50 p-2 rounded-md">
+                    <span className="w-10 text-center text-gray-500">3</span>
+                    <span className="flex-1 px-2 text-gray-800">Speaker</span>
+                    <span className="w-24 text-center px-2 text-gray-800 font-mono">1</span>
+                    <span className="w-24 text-center px-2 text-gray-800 font-mono">Minjam</span>
+                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
+                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
+                  </div>
+                  {/* Row 4 */}
+                  <div className="flex items-center hover:bg-gray-50 p-2 rounded-md">
+                    <span className="w-10 text-center text-gray-500">4</span>
+                    <span className="flex-1 px-2 text-gray-800">Kabel roll</span>
+                    <span className="w-24 text-center px-2 text-gray-800 font-mono">1</span>
+                    <span className="w-24 text-center px-2 text-gray-800 font-mono">Minjam</span>
+                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
+                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
+                  </div>
+                </div>
+                
+                {/* Footer */}
+                <div className="flex justify-between items-center border-t font-bold text-gray-800 pt-2 mt-2 p-2">
+                  <span>Total Harga Barang</span>
+                  <span className="font-mono">Rp. 0,-</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        <PhotoGallery
+          photos={moviePhotos}
+          title="Kumpulan Foto dan Video Acara"
+          iconColor="text-blue-600"
         />
       </div>
     </DashboardLayout>
