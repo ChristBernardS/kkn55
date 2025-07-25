@@ -18,12 +18,12 @@ import {
 } from "@/components/ui/sidebar";
 
 const menuItems = [
-  { title: "Overview", url: "/", icon: Home },
-  { title: "Cinema", url: "/movie-screening", icon: Film },
-  { title: "Health Screening", url: "/health-screening", icon: HeartPulse },
-  { title: "UMKM", url: "/art-event", icon: ShoppingBag },
-  { title: "House Numbering", url: "/house-numbering", icon: Home },
-  { title: "Members", url: "/members", icon: UserCheck }
+  { title: "Beranda", url: "/", icon: Home },
+  { title: "Nonton Bersama", url: "/movie-screening", icon: Film },
+  { title: "Pemeriksaan Kesehatan", url: "/health-screening", icon: HeartPulse },
+  { title: "Sosialisasi UMKM", url: "/art-event", icon: ShoppingBag },
+  { title: "Penomoran Rumah", url: "/house-numbering", icon: Home },
+  { title: "Anggota", url: "/members", icon: UserCheck },
 ];
 
 export function AppSidebar() {
@@ -45,14 +45,14 @@ export function AppSidebar() {
     <Sidebar className="w-64 border-r border-gray-200 bg-white shadow-lg">
       <div className="p-4 border-b border-gray-200">
         <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
-          Resident Insights
+          Dashboard
         </h2>
       </div>
 
       <SidebarContent className="p-2">
         <SidebarGroup>
           <SidebarGroupLabel className="text-gray-500 text-sm font-medium mb-2">
-            Navigation
+            Navigasi
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
