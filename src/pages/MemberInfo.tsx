@@ -124,7 +124,7 @@ export default function MemberInfo() {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentMember((prev) => (prev + 1) % members.length);
-        }, 5000);
+        }, 20000);
 
         return () => clearInterval(interval);
     }, []);
