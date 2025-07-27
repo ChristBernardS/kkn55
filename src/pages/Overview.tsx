@@ -21,7 +21,7 @@ export default function Overview() {
   const position: L.LatLngExpression = [-8.185093026404976, 110.97966157791248];
 
   const dailyActivities = [
-    { id: 1, title: "Daily activities", url: "/image/dl_1.mp4", type: "video" as const },
+    { id: 1, title: "Kegiatan sehari-hari", url: "/image/dl_1.mp4", type: "video" as const },
     { id: 2, title: "Kunjungan rumah warga", url: "/image/dl_2.mp4", type: "video" as const },
     { id: 3, title: "Membersihkan Gapura part 1", url: "/image/dl_3.mp4", type: "video" as const },
     { id: 4, title: "Membersihkan Gapura part 2", url: "/image/dl_4.mp4", type: "video" as const },
@@ -52,38 +52,38 @@ export default function Overview() {
       <div className="space-y-6">
         <div className="flex items-center space-x-3">
           <Home className="h-8 w-8 text-blue-600" />
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard Overview</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Beranda</h1>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <DataCard
-            title="Total Residents"
+            title="Jumlah Penduduk"
             value={63}
-            subtitle="Active residents"
+            subtitle="Penduduk aktif"
             icon={<Users className="h-6 w-6" />}
             gradient="from-blue-500 to-blue-600"
           />
           
           <DataCard
-            title="Recent Screenings"
-            value={32}
-            subtitle="Health screenings completed"
+            title="Program Kerja Kelompok"
+            value={63}
+            subtitle="Warga hadir"
             icon={<Activity className="h-6 w-6" />}
             gradient="from-green-500 to-green-600"
           />
           
           <DataCard
-            title="Events This Month"
+            title="Program yang Dilaksanakan Bulan ini"
             value={4}
-            subtitle="Community activities"
+            subtitle="Kegiatan"
             icon={<Calendar className="h-6 w-6" />}
             gradient="from-purple-500 to-purple-600"
           />
           
           <DataCard
-            title="Satisfaction Rate"
+            title="Tingkat Kepuasan Warga"
             value="87%"
-            subtitle="Overall satisfaction"
+            subtitle="Kepuasan Keselurahan"
             icon={<TrendingUp className="h-6 w-6" />}
             gradient="from-teal-500 to-teal-600"
           />
@@ -94,7 +94,7 @@ export default function Overview() {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Activity className="h-5 w-5 text-blue-600" />
-                <span>Recent Activities</span>
+                <span>Kegiatan yang Dilaksanakan</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -102,29 +102,29 @@ export default function Overview() {
                 <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
                   <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                   <div>
-                    <div className="font-medium text-gray-900">Cinema Completed</div>
-                    <div className="text-sm text-gray-600">38 residents attended</div>
+                    <div className="font-medium text-gray-900">Nonton Bersama</div>
+                    <div className="text-sm text-gray-600">38 penduduk hadir</div>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   <div>
-                    <div className="font-medium text-gray-900">Health Screening Completed</div>
-                    <div className="text-sm text-gray-600">63 residents screened</div>
+                    <div className="font-medium text-gray-900">Pemeriksaan Kesehatan</div>
+                    <div className="text-sm text-gray-600">63 penduduk hadir</div>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3 p-3 bg-purple-50 rounded-lg">
                   <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                   <div>
-                    <div className="font-medium text-gray-900">UMKM</div>
-                    <div className="text-sm text-gray-600">56 attendance</div>
+                    <div className="font-medium text-gray-900">Program Kerja Gabungan, Sosialisasi UMKM</div>
+                    <div className="text-sm text-gray-600">21 penduduk hadir</div>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3 p-3 bg-yellow-50 rounded-lg">
                   <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
                   <div>
-                    <div className="font-medium text-gray-900">House Numbering</div>
-                    <div className="text-sm text-gray-600">29 house numbered</div>
+                    <div className="font-medium text-gray-900">Penomoran Rumah</div>
+                    <div className="text-sm text-gray-600">29 rumah</div>
                   </div>
                 </div>
               </div>
@@ -141,23 +141,23 @@ export default function Overview() {
             <CardContent>
               <div className="space-y-4">
                 <div className="flex justify-between items-center p-3 bg-gradient-to-r from-blue-50 to-teal-50 rounded-lg">
-                  <span className="font-medium text-gray-700">Cinema Attendance Rate</span>
+                  <span className="font-medium text-gray-700">Persentase Kehadiran Nonton Bersama</span>
                   <span className="font-bold text-blue-600">61%</span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg">
-                  <span className="font-medium text-gray-700">Health Screening Attendance Rate</span>
+                  <span className="font-medium text-gray-700">Persentase Kehadiran Pemeriksaan Kesehatan</span>
                   <span className="font-bold text-green-600">100%</span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
-                  <span className="font-medium text-gray-700">UMKM Socialization Attendance Rate</span>
-                  <span className="font-bold text-purple-600">88%</span>
+                  <span className="font-medium text-gray-700">Persentase Kehadiran Program Kerja Gabungan</span>
+                  <span className="font-bold text-purple-600">33%</span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-gradient-to-r from-yellow-50 to-yellow-50 rounded-lg">
-                  <span className="font-medium text-gray-700">House Numbered</span>
+                  <span className="font-medium text-gray-700">Penomoran Rumah</span>
                   <span className="font-bold text-yellow-600">100%</span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-gradient-to-r from-orange-50 to-orange-50 rounded-lg">
-                  <span className="font-medium text-gray-700">Average Satisfaction</span>
+                  <span className="font-medium text-gray-700">Rata-Rata Tingkat Kepuasan</span>
                   <span className="font-bold text-orange-600">87%</span>
                 </div>
               </div>
@@ -169,7 +169,7 @@ export default function Overview() {
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
               <MapPin className="h-5 w-5 text-red-600" />
-              <span>Location</span>
+              <span>Lokasi</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -197,7 +197,7 @@ export default function Overview() {
         <div className="mt-4 p-3 bg-orange-50 rounded-lg border-l-4 border-orange-300">
           <div className="flex items-center space-x-2 mb-2">
             <NotebookText className="h-5 w-5 text-gray-700" />
-            <span className="font-semibold text-gray-800">Notes:</span>
+            <span className="font-semibold text-gray-800">Catatan:</span>
           </div>
           <p className="text-sm text-gray-700 leading-relaxed">
             Program Kuliah Kerja Nyata (KKN) ini dilaksanakan di <strong>Dusun Sumur, Desa Dersono, Kabupaten Pacitan</strong>. 
@@ -212,27 +212,27 @@ export default function Overview() {
 
         <PhotoGallery 
           photos={dailyActivities} 
-          title="Daily Activity" 
+          title="Aktivitas sehari-hari" 
           iconColor="text-blue-600" 
         />
 
         <Card className="shadow-lg">
           <CardHeader>
-            <CardTitle>Available Datasets</CardTitle>
+            <CardTitle>Dataset yang Digunakan</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="p-4 border-2 border-blue-200 rounded-lg bg-blue-50">
-                <h3 className="font-semibold text-blue-900 mb-2">Cinema Data</h3>
-                <p className="text-sm text-blue-700">Attendance, satisfaction, and event details</p>
+                <h3 className="font-semibold text-blue-900 mb-2">Data Nonton Bersama</h3>
+                <p className="text-sm text-blue-700">Kehadiran, kepuasan, and rincian kegiatan</p>
               </div>
               <div className="p-4 border-2 border-red-200 rounded-lg bg-red-50">
                 <h3 className="font-semibold text-red-900 mb-2">Health Screening Data</h3>
-                <p className="text-sm text-red-700">Medical metrics and health indicators</p>
+                <p className="text-sm text-red-700">Metrik medis dan indikator kesehatan</p>
               </div>
               <div className="p-4 border-2 border-gray-200 rounded-lg bg-gray-50">
-                <h3 className="font-semibold text-gray-600 mb-2">Additional Datasets</h3>
-                <p className="text-sm text-gray-500">2 more datasets</p>
+                <h3 className="font-semibold text-gray-600 mb-2">Dataset Lainnya</h3>
+                <p className="text-sm text-gray-500">2 dataset tambahan</p>
               </div>
             </div>
           </CardContent>
