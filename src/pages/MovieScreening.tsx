@@ -4,7 +4,7 @@ import { DashboardLayout } from "@/components/DashboardLayout";
 import { DataCard } from "@/components/DataCard";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Film, Users, Star, Calendar, Loader2, CheckCircle, XCircle, Target, AlertTriangle, Lightbulb, CircleDollarSign } from "lucide-react";
+import { Film, Users, Star, Calendar, Loader2, AlertTriangle, Lightbulb } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMovieScreeningData } from "@/utils/csvUtils";
 
@@ -202,36 +202,7 @@ export default function MovieScreening() {
           </Card>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Target className="h-5 w-5 text-green-600" />
-                <span>Indikator Keberhasilan</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="min-h-5 min-w-5 text-green-500" />
-                  <span className="text-sm text-gray-700">Minimal 50% dari total warga desa hadir dalam kegiatan.</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <XCircle className="min-h-5 min-w-5 text-red-500" />
-                  <span className="text-sm text-gray-700">Warga yang hadir mampu mengikuti kegiatan sampai selesai.</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="min-h-5 min-w-5 text-green-500" />
-                  <span className="text-sm text-gray-700">Terciptanya interaksi positif antar warga selama kegiatan berlangsung.</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="min-h-5 min-w-5 text-green-500" />
-                  <span className="text-sm text-gray-700">Meningkatnya antusiasme warga terhadap kegiatan KKN.</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card className="shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
@@ -282,136 +253,6 @@ export default function MovieScreening() {
             </CardContent>
           </Card>
 
-          <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5 text-purple-600" />
-                <span>Luaran yang Dicapai</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-3 text-sm text-gray-700">
-                <li className="flex items-start space-x-3">
-                  <div className="min-w-2 min-h-2 bg-purple-500 rounded-full mt-2"></div>
-                  <span>Jumlah kehadiran diatas 50%</span>
-                </li>
-                <li className="flex items-start space-x-3">
-                  <div className="min-w-2 min-h-2 bg-purple-500 rounded-full mt-2"></div>
-                  <span>Terciptanya interaksi positif antarwarga</span>
-                </li>
-                <li className="flex items-start space-x-3">
-                  <div className="min-w-2 min-h-2 bg-purple-500 rounded-full mt-2"></div>
-                  <span>Meningkatnya antusias warga terhadap kegiatan KKN</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-          <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Calendar className="h-5 w-5 text-teal-600" />
-                <span>Jadwal Kegiatan</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <div className="text-xs font-mono text-gray-600 min-w-[80px]">19:30</div>
-                  <div className="text-sm text-gray-700">Persiapan Alat</div>
-                </div>
-                <div className="flex items-start space-x-3 p-3 bg-blue-50 rounded-lg">
-                  <div className="text-xs font-mono text-blue-600 min-w-[80px]">20:00</div>
-                  <div className="text-sm text-gray-700">Pembukaan dan Sambutan</div>
-                </div>
-                <div className="flex items-start space-x-3 p-3 bg-teal-50 rounded-lg">
-                  <div className="text-xs font-mono text-teal-600 min-w-[80px]">20:15</div>
-                  <div className="text-sm text-gray-700">Penjelasan Alat, Edukasi Teknologi</div>
-                </div>
-                <div className="flex items-start space-x-3 p-3 bg-green-50 rounded-lg">
-                  <div className="text-xs font-mono text-green-600 min-w-[80px]">20:20</div>
-                  <div className="text-sm text-gray-700">Pemutaran Film</div>
-                </div>
-                <div className="flex items-start space-x-3 p-3 bg-purple-50 rounded-lg">
-                  <div className="text-xs font-mono text-purple-600 min-w-[80px]">22:15</div>
-                  <div className="text-sm text-gray-700">Survey Kepuasan Warga dan Penyampaian Pesan Moral Film</div>
-                </div>
-                <div className="flex items-start space-x-3 p-3 bg-orange-50 rounded-lg">
-                  <div className="text-xs font-mono text-orange-600 min-w-[80px]">22:20</div>
-                  <div className="text-sm text-gray-700">Foto Bersama dan Penutupan</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <CircleDollarSign className="h-5 w-5 text-teal-600" />
-                <span>Anggaran</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-sm">
-                {/* Header */}
-                <div className="flex items-center border-b font-semibold text-gray-600 pb-2 mb-2">
-                  <span className="w-10 text-center">No</span>
-                  <span className="flex-1 px-2">Nama Barang</span>
-                  <span className="w-24 text-center px-2">Total Barang</span>
-                  <span className="w-24 text-center px-2">Keterangan</span>
-                  <span className="w-32 text-right px-2">Harga Satuan</span>
-                  <span className="w-32 text-right px-2">Harga Total</span>
-                </div>
-
-                {/* Body */}
-                <div className="space-y-1">
-                  {/* Row 1 */}
-                  <div className="flex items-center hover:bg-gray-50 p-2 rounded-md">
-                    <span className="w-10 text-center text-gray-500">1</span>
-                    <span className="flex-1 px-2 text-gray-800">Proyektor</span>
-                    <span className="w-24 text-center px-2 text-gray-800 font-mono">1</span>
-                    <span className="w-24 text-center px-2 text-gray-800 font-mono">Minjam</span>
-                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
-                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
-                  </div>
-                  {/* Row 2 */}
-                  <div className="flex items-center hover:bg-gray-50 p-2 rounded-md">
-                    <span className="w-10 text-center text-gray-500">2</span>
-                    <span className="flex-1 px-2 text-gray-800">Layar</span>
-                    <span className="w-24 text-center px-2 text-gray-800 font-mono">1</span>
-                    <span className="w-24 text-center px-2 text-gray-800 font-mono">Minjam</span>
-                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
-                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
-                  </div>
-                  {/* Row 3 */}
-                  <div className="flex items-center hover:bg-gray-50 p-2 rounded-md">
-                    <span className="w-10 text-center text-gray-500">3</span>
-                    <span className="flex-1 px-2 text-gray-800">Speaker</span>
-                    <span className="w-24 text-center px-2 text-gray-800 font-mono">1</span>
-                    <span className="w-24 text-center px-2 text-gray-800 font-mono">Minjam</span>
-                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
-                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
-                  </div>
-                  {/* Row 4 */}
-                  <div className="flex items-center hover:bg-gray-50 p-2 rounded-md">
-                    <span className="w-10 text-center text-gray-500">4</span>
-                    <span className="flex-1 px-2 text-gray-800">Kabel roll</span>
-                    <span className="w-24 text-center px-2 text-gray-800 font-mono">1</span>
-                    <span className="w-24 text-center px-2 text-gray-800 font-mono">Minjam</span>
-                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
-                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
-                  </div>
-                </div>
-                
-                {/* Footer */}
-                <div className="flex justify-between items-center border-t font-bold text-gray-800 pt-2 mt-2 p-2">
-                  <span>Total Harga Barang</span>
-                  <span className="font-mono">Rp. 0,-</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         </div>
         <PhotoGallery
           photos={moviePhotos}
