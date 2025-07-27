@@ -2,7 +2,7 @@ import { DashboardLayout } from "@/components/DashboardLayout";
 import { DataCard } from "@/components/DataCard";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Home, Users, Calendar, Loader2, CheckCircle, Target, AlertTriangle, Lightbulb, CircleDollarSign } from "lucide-react";
+import { Home, Users, Calendar, Loader2, AlertTriangle, Lightbulb } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchHouseNumberingData } from "@/utils/csvUtils";
 
@@ -181,40 +181,7 @@ export default function HouseNumbering() {
           </Card>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Target className="h-5 w-5 text-green-600" />
-                <span>Indikator Keberhasilan</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="min-h-5 min-w-5 text-green-500" />
-                  <span className="text-sm text-gray-700">Seluruh rumah di Dusun Sumur telah terdata dan diberikan nomor secara sistematis.</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="min-h-5 min-w-5 text-green-500" />
-                  <span className="text-sm text-gray-700">Izin dan persetujuan warga telah diperoleh untuk penempelan stiker nomor rumah.</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="min-h-5 min-w-5 text-green-500" />
-                  <span className="text-sm text-gray-700">Stiker nomor rumah telah ditempel di semua rumah secara seragam dan rapi.</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="min-h-5 min-w-5 text-green-500" />
-                  <span className="text-sm text-gray-700">Warga memahami tujuan dan manfaat dari penomoran rumah.</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="min-h-5 min-w-5 text-green-500" />
-                  <span className="text-sm text-gray-700">Tidak adanya penolakan atau komplain dari warga selama pelaksanaan program.</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card className="shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
@@ -226,7 +193,7 @@ export default function HouseNumbering() {
               <ul className="space-y-3 text-sm text-gray-700">
                 <li className="flex items-start space-x-3">
                   <div className="min-w-2 min-h-2 bg-orange-500 rounded-full mt-2"></div>
-                  <span>Usia warga yang beragam</span>
+                  <span>Proses kunjungan ke rumah-rumah warga untuk meminta izin menjadi terhambat dikarenakan setiap warga harus mengurus ladang dan ternak setiap hari</span>
                 </li>
                 <li className="flex items-start space-x-3">
                   <div className="min-w-2 min-h-2 bg-orange-500 rounded-full mt-2"></div>
@@ -234,7 +201,7 @@ export default function HouseNumbering() {
                 </li>
                 <li className="flex items-start space-x-3">
                   <div className="min-w-2 min-h-2 bg-orange-500 rounded-full mt-2"></div>
-                  <span>Komunikasi yang sulit dijalankan</span>
+                  <span>Logistik / tempat percetakan sticker yang jauh dari lokasi KKN</span>
                 </li>
               </ul>
             </CardContent>
@@ -251,152 +218,17 @@ export default function HouseNumbering() {
               <ul className="space-y-3 text-sm text-gray-700">
                 <li className="flex items-start space-x-3">
                   <div className="min-w-2 min-h-2 bg-blue-500 rounded-full mt-2"></div>
-                  <span>Pemilihan film yang bisa ditonton oleh semua kalangan usia</span>
+                  <span>Proses kunjungan dilakukan pada pagi dan malam hari</span>
                 </li>
                 <li className="flex items-start space-x-3">
                   <div className="min-w-2 min-h-2 bg-blue-500 rounded-full mt-2"></div>
-                  <span>Mengunduh film sebelum program KKN dilaksanakan</span>
+                  <span>Mencatat data berupa nomor rumah dan jumlah kepala keluarga pada aplikasi notes di handphone sebelum diunggah ke internet</span>
                 </li>
                 <li className="flex items-start space-x-3">
                   <div className="min-w-2 min-h-2 bg-blue-500 rounded-full mt-2"></div>
-                  <span>Meminta pertolongan Ibu Kasun untuk menyebarkan informasi terkait tanggal acara diadakan</span>
+                  <span>Design sticker nomor rumah dibuat sebelum penerjunan KKN</span>
                 </li>
               </ul>
-            </CardContent>
-          </Card>
-
-          <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5 text-purple-600" />
-                <span>Luaran yang Dicapai</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-3 text-sm text-gray-700">
-                <li className="flex items-start space-x-3">
-                  <div className="min-w-2 min-h-2 bg-purple-500 rounded-full mt-2"></div>
-                  <span>Jumlah kehadiran diatas 50%</span>
-                </li>
-                <li className="flex items-start space-x-3">
-                  <div className="min-w-2 min-h-2 bg-purple-500 rounded-full mt-2"></div>
-                  <span>Terciptanya interaksi positif antarwarga</span>
-                </li>
-                <li className="flex items-start space-x-3">
-                  <div className="min-w-2 min-h-2 bg-purple-500 rounded-full mt-2"></div>
-                  <span>Meningkatnya antusias warga terhadap kegiatan KKN</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-          <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Calendar className="h-5 w-5 text-teal-600" />
-                <span>Jadwal Kegiatan</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <div className="text-xs font-mono text-gray-600 min-w-[80px]">11 Juli</div>
-                  <div className="text-sm text-gray-700">Koordinasi awal dengan anggota kelompok</div>
-                </div>
-                <div className="flex items-start space-x-3 p-3 bg-blue-50 rounded-lg">
-                  <div className="text-xs font-mono text-blue-600 min-w-[80px]">12 Juli</div>
-                  <div className="text-sm text-gray-700">Koordinasi dengan Ibu Dukuh</div>
-                </div>
-                <div className="flex items-start space-x-3 p-3 bg-teal-50 rounded-lg">
-                  <div className="text-xs font-mono text-teal-600 min-w-[80px]">13 Juli</div>
-                  <div className="text-sm text-gray-700">Pembuatan format data rumah & desain awal stiker nomor</div>
-                </div>
-                <div className="flex items-start space-x-3 p-3 bg-green-50 rounded-lg">
-                  <div className="text-xs font-mono text-green-600 min-w-[80px]">14 Juli</div>
-                  <div className="text-sm text-gray-700">Survei dan pendataan awal rumah warga</div>
-                </div>
-                <div className="flex items-start space-x-3 p-3 bg-purple-50 rounded-lg">
-                  <div className="text-xs font-mono text-purple-600 min-w-[80px]">15 Juli</div>
-                  <div className="text-sm text-gray-700">Menyusun data lengkap, memetakan rumah yang akan ditempeli stiker</div>
-                </div>
-                <div className="flex items-start space-x-3 p-3 bg-orange-50 rounded-lg">
-                  <div className="text-xs font-mono text-orange-600 min-w-[80px]">16-17 Juli</div>
-                  <div className="text-sm text-gray-700">Mencetak stiker</div>
-                </div>
-                <div className="flex items-start space-x-3 p-3 bg-yellow-50 rounded-lg">
-                  <div className="text-xs font-mono text-yellow-600 min-w-[80px]">18 Juli</div>
-                  <div className="text-sm text-gray-700">Menempel stiker ke rumah - rumah warga</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <CircleDollarSign className="h-5 w-5 text-teal-600" />
-                <span>Anggaran</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-sm">
-                {/* Header */}
-                <div className="flex items-center border-b font-semibold text-gray-600 pb-2 mb-2">
-                  <span className="w-10 text-center">No</span>
-                  <span className="flex-1 px-2">Nama Barang</span>
-                  <span className="w-24 text-center px-2">Total Barang</span>
-                  <span className="w-24 text-center px-2">Keterangan</span>
-                  <span className="w-32 text-right px-2">Harga Satuan</span>
-                  <span className="w-32 text-right px-2">Harga Total</span>
-                </div>
-
-                {/* Body */}
-                <div className="space-y-1">
-                  {/* Row 1 */}
-                  <div className="flex items-center hover:bg-gray-50 p-2 rounded-md">
-                    <span className="w-10 text-center text-gray-500">1</span>
-                    <span className="flex-1 px-2 text-gray-800">Biaya cetak stiker</span>
-                    <span className="w-24 text-center px-2 text-gray-800 font-mono">30</span>
-                    <span className="w-24 text-center px-2 text-gray-800 font-mono">Minjam</span>
-                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
-                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
-                  </div>
-                  {/* Row 2 */}
-                  <div className="flex items-center hover:bg-gray-50 p-2 rounded-md">
-                    <span className="w-10 text-center text-gray-500">2</span>
-                    <span className="flex-1 px-2 text-gray-800">Layar</span>
-                    <span className="w-24 text-center px-2 text-gray-800 font-mono">1</span>
-                    <span className="w-24 text-center px-2 text-gray-800 font-mono">Minjam</span>
-                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
-                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
-                  </div>
-                  {/* Row 3 */}
-                  <div className="flex items-center hover:bg-gray-50 p-2 rounded-md">
-                    <span className="w-10 text-center text-gray-500">3</span>
-                    <span className="flex-1 px-2 text-gray-800">Speaker</span>
-                    <span className="w-24 text-center px-2 text-gray-800 font-mono">1</span>
-                    <span className="w-24 text-center px-2 text-gray-800 font-mono">Minjam</span>
-                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
-                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
-                  </div>
-                  {/* Row 4 */}
-                  <div className="flex items-center hover:bg-gray-50 p-2 rounded-md">
-                    <span className="w-10 text-center text-gray-500">4</span>
-                    <span className="flex-1 px-2 text-gray-800">Kabel roll</span>
-                    <span className="w-24 text-center px-2 text-gray-800 font-mono">1</span>
-                    <span className="w-24 text-center px-2 text-gray-800 font-mono">Minjam</span>
-                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
-                    <span className="w-32 text-right px-2 text-gray-800 font-mono">Rp. 0,-</span>
-                  </div>
-                </div>
-                
-                {/* Footer */}
-                <div className="flex justify-between items-center border-t font-bold text-gray-800 pt-2 mt-2 p-2">
-                  <span>Total Harga Barang</span>
-                  <span className="font-mono">Rp. 0,-</span>
-                </div>
-              </div>
             </CardContent>
           </Card>
         </div>
