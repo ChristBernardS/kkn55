@@ -47,6 +47,8 @@ export interface ArtSubEventData {
   duration: number;
   programSummary: string;
   eventProdi: string;
+  kendala: string;
+  solusi: string;
 }
 
 export interface HouseNumberingData {
@@ -234,6 +236,8 @@ export const fetchArtEventData = async (): Promise<{
     duration: data.duration || 0,
     programSummary: data.programSummary || 'No summary available',
     eventProdi: data.eventProdi || 'No summary available',
+    kendala: data.kendala || 'Tidak ada kendala',
+    solusi: data.solusi || 'Tidak ada solusi'
   }));
 
   console.log('Parsed main event data:', mainEvent);
