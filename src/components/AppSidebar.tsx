@@ -22,7 +22,7 @@ const menuItems = [
   { title: "Nonton Bersama", url: "/movie-screening", icon: Film },
   { title: "Pemeriksaan Kesehatan", url: "/health-screening", icon: HeartPulse },
   { title: "Sosialisasi UMKM", url: "/art-event", icon: ShoppingBag },
-  { title: "Penomoran Rumah", url: "/house-numbering", icon: Home },
+  { title: "Sosialisasi Penomoran", url: "/house-numbering", icon: Home },
   { title: "Anggota", url: "/members", icon: UserCheck },
 ];
 
