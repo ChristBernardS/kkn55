@@ -4,7 +4,7 @@ export function ArtPhotoGallery() {
   const photos = [
     { id: 1, title: "Foto Bersama", url: "/image/umkm_1.jpg" },
     { id: 2, title: "Foto 1", url: "/image/umkm_2.jpg" },
-    { id: 3, title: "Foto 2", url: "/image/umkm_3.jpg" },
+    { id: 3, title: "Foto 2", url: "/image/umkm_21.jpg" },
     { id: 4, title: "Sosialisasi 1", url: "/image/umkm_4.jpg" },
     { id: 5, title: "Sosialisasi 2", url: "/image/umkm_5.jpg" },
     { id: 6, title: "Foto 3", url: "/image/umkm_6.jpg" },
