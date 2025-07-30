@@ -78,9 +78,13 @@ export default function HouseNumbering() {
     { id: 2, title: "Kondisi Rumah Warga", url: "/image/house_2.jpg" },
     { id: 3, title: "Proses Pemasangan", url: "/image/house_3.jpg" },
     { id: 4, title: "Partisipasi Warga", url: "/image/house_4.jpg" },
-    { id: 5, title: "Rumah yang sudah Dinomori", url: "/image/house_5.jpg" },
+    { id: 5, title: "Sosialisasi", url: "/image/umkm_3.jpg" },
     { id: 6, title: "Kumpulan Video Kegiatan", url: "/image/house_6.mp4", type: "video" as const }
   ];
+
+  const attendanceRate = houseData.totalResidents > 0
+    ? Math.round((houseData.totalFamilyHead / houseData.totalResidents) * 100)
+    : 0;
 
   const averagePerHouse = houseData.totalHouses > 0
     ? (houseData.totalResidents / houseData.totalHouses).toFixed(1)
@@ -91,7 +95,7 @@ export default function HouseNumbering() {
       <div className="space-y-6">
         <div className="flex items-center space-x-3">
           <Home className="h-8 w-8 text-green-600" />
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard Penomoran Rumah</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Dashboard Sosialisasi Penomoran Rumah</h1>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -103,17 +107,17 @@ export default function HouseNumbering() {
           />
 
           <DataCard
-            title="Kepala Keluarga"
+            title="Total Kehadiran"
             value={formatNumber(houseData.totalFamilyHead)}
-            subtitle="Kepala keluarga terdaftar"
+            subtitle={`${formatNumber(attendanceRate)}% Tingkat partisipasi`}
             icon={<Users className="h-6 w-6" />}
             gradient="from-blue-500 to-blue-600"
           />
 
           <DataCard
-            title="Jumlah Rumah"
-            value={formatNumber(houseData.totalHouses)}
-            subtitle="Rumah dinomori"
+            title="Tingkat Kepuasan"
+            value={`100%`}
+            subtitle="Kepuasan keseluruhan"
             icon={<Home className="h-6 w-6" />}
             gradient="from-purple-500 to-purple-600"
           />
@@ -132,7 +136,7 @@ export default function HouseNumbering() {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Home className="h-5 w-5 text-green-600" />
-                <span>Ringkasan Kegiatan</span>
+                <span>Ringkasan Kondisi Rumah</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -142,12 +146,12 @@ export default function HouseNumbering() {
                   <span className="text-gray-900">{averagePerHouse} penduduk</span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                  <span className="font-medium text-gray-700">Cakupan:</span>
-                  <span className="text-gray-900">100% dari rumah penduduk</span>
+                  <span className="font-medium text-gray-700">Total kepala keluarga:</span>
+                  <span className="text-gray-900">{houseData.totalFamilyHead} kepala keluarga</span>
                 </div>
                 <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                  <span className="font-medium text-gray-700">Status:</span>
-                  <span className="text-green-600 font-medium">Selesai</span>
+                  <span className="font-medium text-gray-700">Cakupan:</span>
+                  <span className="text-gray-900">RT 01 & RT 02 Dusun Sumur</span>
                 </div>
               </div>
             </CardContent>
@@ -157,14 +161,22 @@ export default function HouseNumbering() {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Users className="h-5 w-5 text-blue-600" />
-                <span>Demografi</span>
+                <span>Ringkasan Praktik Penomoran Rumah</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
+                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                  <span className="font-medium text-gray-700">Cakupan:</span>
+                  <span className="text-gray-900">RT 01 & RT 02 Dusun Sumur</span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                  <span className="font-medium text-gray-700">Jumlah rumah</span>
+                  <span className="text-gray-900">{formatNumber(houseData.totalHouses)}</span>
+                </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-700">Jumlah penduduk</span>
-                  <span className="font-bold text-2xl text-blue-600">{formatNumber(houseData.totalResidents)}</span>
+                  <span className="font-medium text-gray-700">Status:</span>
+                  <span className="font-bold text-1xl text-teal-600">Selesai</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-3">
                   <div
@@ -173,8 +185,8 @@ export default function HouseNumbering() {
                   ></div>
                 </div>
                 <div className="flex justify-between text-sm text-gray-600">
-                  <span>Keluarga: {formatNumber(houseData.totalFamilyHead)}</span>
-                  <span>Rumah: {formatNumber(houseData.totalHouses)}</span>
+                  <span>0%</span>
+                  <span>100%</span>
                 </div>
               </div>
               </CardContent>
@@ -193,15 +205,11 @@ export default function HouseNumbering() {
               <ul className="space-y-3 text-sm text-gray-700">
                 <li className="flex items-start space-x-3">
                   <div className="min-w-2 min-h-2 bg-orange-500 rounded-full mt-2"></div>
-                  <span>Proses kunjungan ke rumah-rumah warga untuk meminta izin menjadi terhambat dikarenakan setiap warga harus mengurus ladang dan ternak setiap hari</span>
+                  <span>Komunikasi yang sulit dijalankan</span>
                 </li>
                 <li className="flex items-start space-x-3">
                   <div className="min-w-2 min-h-2 bg-orange-500 rounded-full mt-2"></div>
                   <span>Keterbatasan infrastruktur yaitu sinyal internet</span>
-                </li>
-                <li className="flex items-start space-x-3">
-                  <div className="min-w-2 min-h-2 bg-orange-500 rounded-full mt-2"></div>
-                  <span>Logistik / tempat percetakan sticker yang jauh dari lokasi KKN</span>
                 </li>
               </ul>
             </CardContent>
@@ -218,15 +226,11 @@ export default function HouseNumbering() {
               <ul className="space-y-3 text-sm text-gray-700">
                 <li className="flex items-start space-x-3">
                   <div className="min-w-2 min-h-2 bg-blue-500 rounded-full mt-2"></div>
-                  <span>Proses kunjungan dilakukan pada pagi dan malam hari</span>
+                  <span>Meminta pertolongan Ibu Kasun untuk menyebarkan informasi terkait tanggal acara diadakan</span>
                 </li>
                 <li className="flex items-start space-x-3">
                   <div className="min-w-2 min-h-2 bg-blue-500 rounded-full mt-2"></div>
-                  <span>Mencatat data berupa nomor rumah dan jumlah kepala keluarga pada aplikasi notes di handphone sebelum diunggah ke internet</span>
-                </li>
-                <li className="flex items-start space-x-3">
-                  <div className="min-w-2 min-h-2 bg-blue-500 rounded-full mt-2"></div>
-                  <span>Design sticker nomor rumah dibuat sebelum penerjunan KKN</span>
+                  <span>Slide presentasi diunduh sebelum sosialisasi diadakan.</span>
                 </li>
               </ul>
             </CardContent>
@@ -235,7 +239,7 @@ export default function HouseNumbering() {
 
         <PhotoGallery 
           photos={housePhotos} 
-          title="House Numbering Project Gallery" 
+          title="Kumpulan Foto dan Video Acara" 
           iconColor="text-green-600" 
         />
       </div>
